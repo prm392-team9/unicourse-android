@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="titleSize">
+        <item name="android:textSize">14sp</item>
+    </style>
+    <style name="normalSize">
+        <item name="android:textSize">14sp</item>
+    </style>
+    <style name="tagSize">
+        <item name="android:textSize">8sp</item>
+    </style>
+</resources>
