@@ -17,18 +17,19 @@ public class UnicourseApplication extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_default);
 
-        new CountDownTimer(3000, 1000) {
+        new CountDownTimer(3000, 1000){
+
             @Override
-            public void onTick(long millisUntilFinished) {
-                // Do nothing
+            public void onTick(long l) {
+                //trong vòng bao nhiêu giây thì thực hiện một công việc nào đó
             }
 
             @Override
             public void onFinish() {
+                //thực hiện khi hoàn thành
                 Intent intent = new Intent(UnicourseApplication.this, LandingActivity.class);
                 startActivity(intent);
-                finish();
             }
-        };
+        }.start();
     }
 }
