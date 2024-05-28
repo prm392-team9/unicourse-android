@@ -2,4 +2,16 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- Customize colors -->
+    <color name="primaryLighter">#e6f7ff</color>
+    <color name="primary100">#bae7ff</color>
+    <color name="primary200">#91d5ff</color>
+    <color name="primary300">#69c0ff</color>
+    <color name="primary400">#40a9ff</color>
+    <color name="primary500">#1890ff</color>
+    <color name="primary600">#096dd9</color>
+    <color name="primary700">#0050b3</color>
+    <color name="primary800">#003a8c</color>
+    <color name="primary900">#002766</color>
 </resources>
