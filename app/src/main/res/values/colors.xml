@@ -14,4 +14,6 @@
     <color name="primary700">#0050b3</color>
     <color name="primary800">#003a8c</color>
     <color name="primary900">#002766</color>
+    <color name="lightGray">#F7F8FC</color>
+    <color name="darkGray">#8d8e8f</color>
 </resources>
