@@ -8,7 +8,7 @@
     android:orientation="vertical"
     android:gravity="center"
     tools:context=".UnicourseApplication"
-    android:background="@drawable/layout">
+    android:background="@drawable/activity_default_layout">
 
     <ImageView
         android:layout_width="match_parent"

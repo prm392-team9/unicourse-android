@@ -414,7 +414,7 @@
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:scaleType="fitXY"
-            android:src="@drawable/user1" />
+            android:src="@drawable/activity_landing_user1" />
     </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
