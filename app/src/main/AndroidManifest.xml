@@ -13,9 +13,11 @@
         android:theme="@style/Theme.Unicourse"
         tools:targetApi="31">
         <activity
-            android:name=".ui.activities.LandingActivity"
+            android:name=".ui.activities.ProfileActivity"
             android:exported="false" />
-        <!-- Declare Course DetailActivity -->
+        <activity
+            android:name=".ui.activities.LandingActivity"
+            android:exported="false" /> <!-- Declare Course DetailActivity -->
         <activity
             android:name=".ui.activities.CourseDetailActivity"
             android:exported="false" /> <!-- Declare Login Activity -->

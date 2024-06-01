@@ -4,7 +4,7 @@
         <item name="android:textSize">14sp</item>
     </style>
     <style name="normalSize">
-        <item name="android:textSize">14sp</item>
+        <item name="android:textSize">12sp</item>
     </style>
     <style name="tagSize">
         <item name="android:textSize">8sp</item>

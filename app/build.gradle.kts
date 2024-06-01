@@ -38,9 +38,13 @@ android {
 dependencies {
 
     implementation(libs.appcompat)
+    implementation("com.google.android.material:material:1.9.0")
+    implementation("com.github.bumptech.glide:glide:4.16.0")
+    implementation("com.github.denzcoskun:ImageSlideshow:0.1.2")
     implementation(libs.material)
     implementation(libs.activity)
     implementation(libs.constraintlayout)
+    implementation(libs.animation.core.android)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
