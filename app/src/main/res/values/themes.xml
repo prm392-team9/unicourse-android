@@ -2,7 +2,8 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.Unicourse" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
-         <item name="colorPrimary">@color/primaryLighter</item>
+         <item name="colorPrimary">@color/primary900</item>
+         <item name="colorPrimaryVariant">@color/primaryLighter</item>
     </style>
 
     <style name="Theme.Unicourse" parent="Base.Theme.Unicourse" />
