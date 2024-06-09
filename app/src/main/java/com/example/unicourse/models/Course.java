@@ -1,13 +1,16 @@
 package com.example.unicourse.models;
-import java.util.List;
-
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class Course {
+
+    private String _id;
     private String title;
     private String titleDescription;
     private String subTitle;
-    private String subTitleDescription;
+    private List<String> subTitleDescription;
     private List<TrackCourse> tracks;
     private int enrollmentCount;
     private String status;
@@ -15,11 +18,15 @@ public class Course {
     private double amount;
     private String thumbnail;
     private String lecture;
-    private int semesterNumber;
+    private int semester_number;
+
+    private Date created_at;
+
 
     public Course() {}
 
-    public Course(String title, String titleDescription, String subTitle, String subTitleDescription, List<TrackCourse> tracks, int enrollmentCount, String status, String type, double amount, String thumbnail, String lecture, int semesterNumber) {
+    public Course(String _id, String title, String titleDescription, String subTitle, List<String> subTitleDescription, List<TrackCourse> tracks, int enrollmentCount, String status, String type, double amount, String thumbnail, String lecture, int semester_number, Date created_at) {
+        this._id = _id;
         this.title = title;
         this.titleDescription = titleDescription;
         this.subTitle = subTitle;
@@ -31,7 +38,16 @@ public class Course {
         this.amount = amount;
         this.thumbnail = thumbnail;
         this.lecture = lecture;
-        this.semesterNumber = semesterNumber;
+        this.semester_number = semester_number;
+        this.created_at = created_at;
+    }
+
+    public String get_id() {
+        return _id;
+    }
+
+    public void set_id(String _id) {
+        this._id = _id;
     }
 
     public String getTitle() {
@@ -58,11 +74,11 @@ public class Course {
         this.subTitle = subTitle;
     }
 
-    public String getSubTitleDescription() {
+    public List<String> getSubTitleDescription() {
         return subTitleDescription;
     }
 
-    public void setSubTitleDescription(String subTitleDescription) {
+    public void setSubTitleDescription(List<String> subTitleDescription) {
         this.subTitleDescription = subTitleDescription;
     }
 
@@ -122,21 +138,31 @@ public class Course {
         this.lecture = lecture;
     }
 
-    public int getSemesterNumber() {
-        return semesterNumber;
+    public int getSemester_number() {
+        return semester_number;
     }
 
-    public void setSemesterNumber(int semesterNumber) {
-        this.semesterNumber = semesterNumber;
+    public void setSemester_number(int semester_number) {
+        this.semester_number = semester_number;
+    }
+
+    public Date getCreated_at() {
+        return created_at;
+    }
+
+    public void setCreated_at(String created_at_str) throws ParseException {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+        this.created_at = dateFormat.parse(created_at_str);
     }
 
     @Override
     public String toString() {
         return "Course{" +
-                "title='" + title + '\'' +
+                "_id='" + _id + '\'' +
+                ", title='" + title + '\'' +
                 ", titleDescription='" + titleDescription + '\'' +
                 ", subTitle='" + subTitle + '\'' +
-                ", subTitleDescription='" + subTitleDescription + '\'' +
+                ", subTitleDescription=" + subTitleDescription +
                 ", tracks=" + tracks +
                 ", enrollmentCount=" + enrollmentCount +
                 ", status='" + status + '\'' +
@@ -144,7 +170,8 @@ public class Course {
                 ", amount=" + amount +
                 ", thumbnail='" + thumbnail + '\'' +
                 ", lecture='" + lecture + '\'' +
-                ", semesterNumber=" + semesterNumber +
+                ", semester_number=" + semester_number +
+                ", created_at=" + created_at +
                 '}';
     }
 }
