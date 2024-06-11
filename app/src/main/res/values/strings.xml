@@ -3,4 +3,6 @@
     <string name="author1">Anh Cóc thân thiện</string>
     <string name="course1">PRM392</string>
     <string name="amount">20.000 VNĐ</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
