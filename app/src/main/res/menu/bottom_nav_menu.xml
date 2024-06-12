@@ -19,4 +19,10 @@
         android:layout_height="wrap_content"
         android:icon="@drawable/bottom_nav_community"
         android:title="Cộng đồng"/>
+    <item
+        android:id="@+id/navProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:icon="@drawable/bottom_nav_profile"
+        android:title="Tài khoản"/>
 </menu>

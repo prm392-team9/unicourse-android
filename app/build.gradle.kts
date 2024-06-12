@@ -43,6 +43,8 @@ dependencies {
     implementation ("com.squareup.picasso:picasso:2.71828")
     implementation("org.projectlombok:lombok:1.18.22")
     annotationProcessor("org.projectlombok:lombok:1.18.22")
+    implementation ("com.squareup.retrofit2:retrofit:2.11.0")
+    implementation ("com.squareup.retrofit2:converter-gson:2.11.0")
     implementation(libs.material)
     implementation(libs.activity)
     implementation(libs.constraintlayout)
