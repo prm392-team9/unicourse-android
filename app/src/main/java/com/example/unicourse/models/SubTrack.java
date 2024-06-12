@@ -16,7 +16,6 @@ public class SubTrack {
     private String type;
     private String platform;
 
-
     @Override
     public String toString() {
         return "SubTrack{" +

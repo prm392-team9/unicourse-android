@@ -20,12 +20,6 @@
             android:name=".ui.activities.ProfileActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.activities.LandingActivity"
-            android:exported="false" /> <!-- Declare Course DetailActivity -->
-        <activity
-            android:name=".ui.activities.CourseDetailActivity"
-            android:exported="false" /> <!-- Declare Login Activity -->
-        <activity
             android:name=".ui.activities.LoginActivity"
             android:exported="false" /> <!-- Declare Main Activity -->
         <activity
