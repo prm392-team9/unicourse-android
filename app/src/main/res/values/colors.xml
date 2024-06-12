@@ -15,8 +15,8 @@
     <color name="primary700">#0050b3</color>
     <color name="primary800">#003a8c</color>
     <color name="primary900">#002766</color>
-    <color name="lightGray">#F7F8FC</color>
-    <color name="darkGray">#8d8e8f</color>
+    <color name="light_gray">#F7F8FC</color>
+    <color name="dark_gray">#8d8e8f</color>
     <color name="light_blue_400">#FF29B6F6</color>
     <color name="light_blue_600">#FF039BE5</color>
     <color name="gray_200">#EEEEEE</color>
