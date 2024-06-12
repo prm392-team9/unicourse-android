@@ -17,9 +17,6 @@ public class TrackCourse {
     private ArrayList<SubTrack> track_steps;
     private Number position;
 
-
-
-
     @Override
     public String toString() {
         return "TrackCourse{" +

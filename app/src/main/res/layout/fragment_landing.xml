@@ -8,7 +8,7 @@
     android:background="@color/primaryLighter"
     android:fitsSystemWindows="true"
     android:orientation="horizontal"
-    tools:context=".ui.activities.LandingActivity">
+    tools:context=".ui.fragments.LandingFragment">
 
     <!-- APP BAR LAYOUT ZONE -->
     <com.google.android.material.appbar.AppBarLayout
@@ -39,6 +39,7 @@
 
                 <!--Avatar-->
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/profileCardView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
@@ -184,6 +185,7 @@
                 android:layout_below="@+id/txtSemester"
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="20dp"
+                android:scrollbars="none"
                 android:foregroundGravity="center_horizontal">
 
                 <!-- child view -->
