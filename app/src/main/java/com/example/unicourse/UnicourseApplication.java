@@ -8,7 +8,6 @@ import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.unicourse.ui.activities.ControllerActivity;
-import com.example.unicourse.ui.activities.LandingActivity;
 
 public class UnicourseApplication extends AppCompatActivity {
 
