@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="10dp"
+    android:paddingHorizontal="10dp"
+    android:paddingTop="10dp"
+    android:background="@color/white"
     android:fitsSystemWindows="true"
     tools:context=".ui.fragments.CourseDetailFragment">
 
@@ -18,7 +20,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
             <!-- Back Button -->
 
             <androidx.cardview.widget.CardView
@@ -45,6 +46,7 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="wrap_content"
                 android:layout_height="220dp"
+                android:paddingHorizontal="10dp"
                 app:cardCornerRadius="40dp"
                 app:cardElevation="0dp">
 
@@ -52,6 +54,7 @@
                     android:id="@+id/mainImageCourse"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
                     android:src="@drawable/sample_course" />
             </androidx.cardview.widget.CardView>
 
@@ -265,11 +268,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:orientation="horizontal"
         android:background="@android:color/white"
         android:elevation="2dp"
-        android:padding="16dp"
-        android:gravity="center">
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingHorizontal="16dp">
 
         <androidx.cardview.widget.CardView
             android:layout_width="wrap_content"
@@ -282,10 +285,10 @@
                 android:id="@+id/addToCartImage"
                 android:layout_width="45dp"
                 android:layout_height="45dp"
-                android:scaleType="fitXY"
-                android:padding="10dp"
                 android:background="@drawable/activity_profile_bg_rounded"
                 android:backgroundTint="@color/gray_200"
+                android:padding="10dp"
+                android:scaleType="fitXY"
                 android:src="@drawable/cart_icon" />
         </androidx.cardview.widget.CardView>
 
@@ -297,8 +300,8 @@
             android:paddingEnd="32dp"
             android:text="Học ngay"
             android:textColor="@android:color/white"
-            app:backgroundTint="@null"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            app:backgroundTint="@null" />
 
     </LinearLayout>
 

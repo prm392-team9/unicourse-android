@@ -25,7 +25,7 @@ public class Course {
     private String type;
     private double amount;
     private String thumbnail;
-    private String lecture;
+    private Lecture lecture;
     private int semester_number;
 
     private Date created_at;
@@ -49,7 +49,7 @@ public class Course {
                 ", type='" + type + '\'' +
                 ", amount=" + amount +
                 ", thumbnail='" + thumbnail + '\'' +
-                ", lecture='" + lecture + '\'' +
+                ", lecture=" + lecture +
                 ", semester_number=" + semester_number +
                 ", created_at=" + created_at +
                 '}';

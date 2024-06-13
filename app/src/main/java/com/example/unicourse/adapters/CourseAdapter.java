@@ -62,7 +62,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CardViewHo
             Glide.with(imageView.getContext())
                     .load(course.getThumbnail())
                     .into(imageView);
-            authorName.setText(course.getLecture()); // Assuming getLecture() returns the author's name
+            authorName.setText(course.getLecture().getFullName()); // Assuming getLecture() returns the author's name
             courseTitle.setText(course.getTitle());
         }
     }
