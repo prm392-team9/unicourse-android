@@ -8,16 +8,16 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class User {
+public class Feeback {
     private String _id;
-    private String email;
-    private String fullName;
-    private String profileName;
-    private String profile_image;
+    private String content;
+    private Number rating;
+    private String course_id;
+    private User user_id;
+    private String status;
     private Date created_at;
     private Date updated_at;
 
@@ -33,12 +33,13 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
+        return "Feeback{" +
                 "_id='" + _id + '\'' +
-                ", email='" + email + '\'' +
-                ", fullName='" + fullName + '\'' +
-                ", profileName='" + profileName + '\'' +
-                ", profile_image='" + profile_image + '\'' +
+                ", content='" + content + '\'' +
+                ", rating=" + rating +
+                ", course_id='" + course_id + '\'' +
+                ", user_id=" + user_id +
+                ", status='" + status + '\'' +
                 ", created_at=" + created_at +
                 ", updated_at=" + updated_at +
                 '}';
