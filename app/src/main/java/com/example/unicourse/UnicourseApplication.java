@@ -8,6 +8,7 @@ import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.unicourse.ui.activities.ControllerActivity;
+import com.example.unicourse.ui.activities.LoginActivity;
 
 public class UnicourseApplication extends AppCompatActivity {
 
@@ -27,7 +28,7 @@ public class UnicourseApplication extends AppCompatActivity {
             @Override
             public void onFinish() {
                 //thực hiện khi hoàn thành
-                Intent intent = new Intent(UnicourseApplication.this, ControllerActivity.class);
+                Intent intent = new Intent(UnicourseApplication.this, LoginActivity.class);
                 startActivity(intent);
             }
         }.start();
