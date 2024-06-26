@@ -11,10 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.example.unicourse.R;
-import com.example.unicourse.models.Course;
-import com.squareup.picasso.Picasso;
+import com.example.unicourse.models.course.Course;
 
 import java.util.ArrayList;
 

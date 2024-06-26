@@ -1,10 +1,4 @@
-package com.example.unicourse.models;
-
-import java.util.List;
-
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+package com.example.unicourse.models.lecture;
 
 public class Lecture {
     private String _id;

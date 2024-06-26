@@ -1,11 +1,6 @@
-package com.example.unicourse.models;
+package com.example.unicourse.models.course;
 
 import java.util.ArrayList;
-
-
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 // TrackCourse and SubTrack classes should also be defined accordingly
 public class TrackCourse {

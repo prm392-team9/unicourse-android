@@ -1,7 +1,7 @@
 package com.example.unicourse.services;
 
-import com.example.unicourse.models.LoginRequest;
-import com.example.unicourse.models.LoginResponse;
+import com.example.unicourse.models.authentication.LoginRequest;
+import com.example.unicourse.models.authentication.LoginResponse;
 
 import retrofit2.Call;
 import retrofit2.http.Body;

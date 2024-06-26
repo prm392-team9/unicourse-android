@@ -1,12 +1,10 @@
 package com.example.unicourse.models;
 
+import com.example.unicourse.models.authentication.User;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 public class Feeback {
     private String _id;
