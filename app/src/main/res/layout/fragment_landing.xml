@@ -130,262 +130,277 @@
 
     </com.google.android.material.appbar.AppBarLayout>
     <!-- SCROLL VIEW ZONE -->
-    <ScrollView
-        android:id="@+id/scrollView"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/appBarLayout"
-        android:fillViewport="true"
-        android:scrollbars="none">
-
-        <LinearLayout
+        android:layout_below="@id/appBarLayout">
+        <ScrollView
+            android:id="@+id/scrollView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <!-- BANNER LAYOUT ZONE -->
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardView"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:layout_below="@+id/appBarLayout"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginTop="20dp"
-                app:cardBackgroundColor="@color/primary200"
-                app:cardCornerRadius="20dp"
-                app:cardElevation="20dp">
+            android:layout_height="match_parent"
+            android:layout_below="@id/appBarLayout"
+            android:fillViewport="true"
+            android:scrollbars="none">
 
-                <com.denzcoskun.imageslider.ImageSlider
-                    android:id="@+id/imageSlider"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <!-- BANNER LAYOUT ZONE -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardView"
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
-                    app:iss_auto_cycle="true"
-                    app:iss_corner_radius="20"
-                    app:iss_delay="1000"
-                    app:iss_period="1000" />
+                    android:layout_below="@+id/appBarLayout"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginTop="20dp"
+                    app:cardBackgroundColor="@color/primary200"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="20dp">
+
+                    <com.denzcoskun.imageslider.ImageSlider
+                        android:id="@+id/imageSlider"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        app:iss_auto_cycle="true"
+                        app:iss_corner_radius="20"
+                        app:iss_delay="1000"
+                        app:iss_period="1000" />
 
 
-            </androidx.cardview.widget.CardView>
+                </androidx.cardview.widget.CardView>
 
-            <!-- SEMESTER ZONE -->
-            <TextView
-                android:id="@+id/txtSemester"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/cardView"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginTop="20dp"
-                android:text="Học kỳ"
-                android:textColor="@color/black"
-                android:textSize="20dp"
-                android:textStyle="bold" />
+                <!-- SEMESTER ZONE -->
+                <TextView
+                    android:id="@+id/txtSemester"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/cardView"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginTop="20dp"
+                    android:text="Học kỳ"
+                    android:textColor="@color/black"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
 
-            <!-- HorizontalScrollView -->
-            <HorizontalScrollView
-                android:id="@+id/horizontalScrollView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/txtSemester"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginTop="20dp"
-                android:scrollbars="none"
-                android:foregroundGravity="center_horizontal">
+                <!-- HorizontalScrollView -->
+                <HorizontalScrollView
+                    android:id="@+id/horizontalScrollView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/txtSemester"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginTop="20dp"
+                    android:scrollbars="none"
+                    android:foregroundGravity="center_horizontal">
 
-                <!-- child view -->
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:foregroundGravity="center"
-                    android:gravity="center_horizontal"
-                    android:orientation="horizontal">
-
-                    <!-- Học kỳ 1 -->
+                    <!-- child view -->
                     <LinearLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
+                        android:layout_height="match_parent"
                         android:foregroundGravity="center"
                         android:gravity="center_horizontal"
-                        android:orientation="vertical">
+                        android:orientation="horizontal">
 
-                        <androidx.appcompat.widget.AppCompatImageButton
-                            android:id="@+id/cn1"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:background="@drawable/activity_landing_icon_button_white"
-                            android:src="@drawable/activity_landing_cn1"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                        <!-- Học kỳ 1 -->
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:foregroundGravity="center"
+                            android:gravity="center_horizontal"
+                            android:orientation="vertical">
 
-                        <TextView
-                            android:layout_width="70dp"
-                            android:layout_height="match_parent"
-                            android:layout_marginTop="5dp"
-                            android:text="Học kỳ 1"
-                            android:textAlignment="center"
-                            android:textColor="@color/black"
-                            android:textStyle="bold" />
+                            <androidx.appcompat.widget.AppCompatImageButton
+                                android:id="@+id/cn1"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:background="@drawable/activity_landing_icon_button_white"
+                                android:src="@drawable/activity_landing_cn1"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:layout_width="70dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginTop="5dp"
+                                android:text="Học kỳ 1"
+                                android:textAlignment="center"
+                                android:textColor="@color/black"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <!-- Học kỳ 2 -->
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:foregroundGravity="center"
+                            android:gravity="center_horizontal"
+                            android:orientation="vertical">
+
+                            <androidx.appcompat.widget.AppCompatImageButton
+                                android:id="@+id/cn2"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:background="@drawable/activity_landing_icon_button_white"
+                                android:src="@drawable/activity_landing_cn2"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:layout_width="70dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginTop="5dp"
+                                android:text="Học kỳ 2"
+                                android:textAlignment="center"
+                                android:textColor="@color/black"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <!-- Học kỳ 3 -->
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:foregroundGravity="center"
+                            android:gravity="center_horizontal"
+                            android:orientation="vertical">
+
+                            <androidx.appcompat.widget.AppCompatImageButton
+                                android:id="@+id/cn3"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:background="@drawable/activity_landing_icon_button_white"
+                                android:src="@drawable/activity_landing_cn3"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:layout_width="70dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginTop="5dp"
+                                android:text="Học kỳ 3"
+                                android:textAlignment="center"
+                                android:textColor="@color/black"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <!-- Học kỳ 4 -->
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:foregroundGravity="center"
+                            android:gravity="center_horizontal"
+                            android:orientation="vertical">
+
+                            <androidx.appcompat.widget.AppCompatImageButton
+                                android:id="@+id/cn4"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:background="@drawable/activity_landing_icon_button_white"
+                                android:src="@drawable/activity_landing_cn4"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:layout_width="70dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginTop="5dp"
+                                android:text="Học kỳ 4"
+                                android:textAlignment="center"
+                                android:textColor="@color/black"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <!-- Học kỳ 5 -->
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:foregroundGravity="center"
+                            android:gravity="center_horizontal"
+                            android:orientation="vertical">
+
+                            <androidx.appcompat.widget.AppCompatImageButton
+                                android:id="@+id/cn5"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:background="@drawable/activity_landing_icon_button_white"
+                                android:src="@drawable/activity_landing_cn5"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:layout_width="70dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginTop="5dp"
+                                android:text="Học kỳ 5"
+                                android:textAlignment="center"
+                                android:textColor="@color/black"
+                                android:textStyle="bold" />
+                        </LinearLayout>
                     </LinearLayout>
+                </HorizontalScrollView>
 
-                    <!-- Học kỳ 2 -->
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:foregroundGravity="center"
-                        android:gravity="center_horizontal"
-                        android:orientation="vertical">
+                <!-- HIGHLIGHT COURSE ZONE -->
+                <TextView
+                    android:id="@+id/txtHightlight"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/cardView"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginTop="20dp"
+                    android:text="Khóa học nổi bật"
+                    android:textColor="@color/black"
+                    android:textSize="18dp"
+                    android:textStyle="bold" />
 
-                        <androidx.appcompat.widget.AppCompatImageButton
-                            android:id="@+id/cn2"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:background="@drawable/activity_landing_icon_button_white"
-                            android:src="@drawable/activity_landing_cn2"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                <!--            <androidx.recyclerview.widget.RecyclerView-->
+                <!--                android:id="@+id/recyclerView"-->
+                <!--                android:layout_width="match_parent"-->
+                <!--                android:layout_height="wrap_content"-->
+                <!--                android:layout_below="@+id/horizontalScrollView"-->
+                <!--                android:layout_marginHorizontal="20dp"-->
+                <!--                android:layout_marginTop="10dp" />-->
 
-                        <TextView
-                            android:layout_width="70dp"
-                            android:layout_height="match_parent"
-                            android:layout_marginTop="5dp"
-                            android:text="Học kỳ 2"
-                            android:textAlignment="center"
-                            android:textColor="@color/black"
-                            android:textStyle="bold" />
-                    </LinearLayout>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerFreeCourseView1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginTop="10dp" />
 
-                    <!-- Học kỳ 3 -->
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:foregroundGravity="center"
-                        android:gravity="center_horizontal"
-                        android:orientation="vertical">
+                <!-- FREE COURSE ZONE -->
+                <TextView
+                    android:id="@+id/txtFreeCourse"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/cardView"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginTop="20dp"
+                    android:text="Khóa học miễn phí"
+                    android:textColor="@color/black"
+                    android:textSize="18dp"
+                    android:textStyle="bold" />
 
-                        <androidx.appcompat.widget.AppCompatImageButton
-                            android:id="@+id/cn3"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:background="@drawable/activity_landing_icon_button_white"
-                            android:src="@drawable/activity_landing_cn3"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerFreeCourseView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginTop="10dp" />
+            </LinearLayout>
+        </ScrollView>
 
-                        <TextView
-                            android:layout_width="70dp"
-                            android:layout_height="match_parent"
-                            android:layout_marginTop="5dp"
-                            android:text="Học kỳ 3"
-                            android:textAlignment="center"
-                            android:textColor="@color/black"
-                            android:textStyle="bold" />
-                    </LinearLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-                    <!-- Học kỳ 4 -->
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:foregroundGravity="center"
-                        android:gravity="center_horizontal"
-                        android:orientation="vertical">
-
-                        <androidx.appcompat.widget.AppCompatImageButton
-                            android:id="@+id/cn4"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:background="@drawable/activity_landing_icon_button_white"
-                            android:src="@drawable/activity_landing_cn4"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <TextView
-                            android:layout_width="70dp"
-                            android:layout_height="match_parent"
-                            android:layout_marginTop="5dp"
-                            android:text="Học kỳ 4"
-                            android:textAlignment="center"
-                            android:textColor="@color/black"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-
-                    <!-- Học kỳ 5 -->
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:foregroundGravity="center"
-                        android:gravity="center_horizontal"
-                        android:orientation="vertical">
-
-                        <androidx.appcompat.widget.AppCompatImageButton
-                            android:id="@+id/cn5"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:background="@drawable/activity_landing_icon_button_white"
-                            android:src="@drawable/activity_landing_cn5"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <TextView
-                            android:layout_width="70dp"
-                            android:layout_height="match_parent"
-                            android:layout_marginTop="5dp"
-                            android:text="Học kỳ 5"
-                            android:textAlignment="center"
-                            android:textColor="@color/black"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-                </LinearLayout>
-            </HorizontalScrollView>
-
-            <!-- HIGHLIGHT COURSE ZONE -->
-            <TextView
-                android:id="@+id/txtHightlight"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/cardView"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginTop="20dp"
-                android:text="Khóa học nổi bật"
-                android:textColor="@color/black"
-                android:textSize="18dp"
-                android:textStyle="bold" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/horizontalScrollView"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginTop="10dp" />
-
-            <!-- FREE COURSE ZONE -->
-            <TextView
-                android:id="@+id/txtFreeCourse"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/cardView"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginTop="20dp"
-                android:text="Khóa học miễn phí"
-                android:textColor="@color/black"
-                android:textSize="18dp"
-                android:textStyle="bold" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerFreeCourseView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginTop="10dp" />
-        </LinearLayout>
-    </ScrollView>
 </RelativeLayout>

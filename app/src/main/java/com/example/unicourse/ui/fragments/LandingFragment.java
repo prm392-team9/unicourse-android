@@ -8,6 +8,8 @@ import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,7 +19,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.denzcoskun.imageslider.ImageSlider;
@@ -25,26 +26,22 @@ import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.models.SlideModel;
 import com.example.unicourse.R;
 import com.example.unicourse.adapters.CourseAdapter;
-import com.example.unicourse.models.Course;
-import com.example.unicourse.models.CoursesResponse;
-import com.example.unicourse.services.ApiConstants;
-import com.example.unicourse.services.CourseApiService;
+import com.example.unicourse.models.course.Course;
 import com.example.unicourse.ui.activities.ProfileActivity;
+import com.example.unicourse.viewmodels.LandingViewModel;
 
 import java.util.ArrayList;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 public class LandingFragment extends Fragment {
-    private static final String BASE_URL = ApiConstants.BASE_URL;
     private ArrayList<Course> mCourses;
     private ArrayList<Course> mFreeCourses;
     private RecyclerView mRecyclerFreeCourse;
+    private RecyclerView mRecyclerFreeCourse1;
     private CourseAdapter mCourseAdapter;
+    private SwipeRefreshLayout swipeRefreshLayout;
+    private LandingViewModel landingViewModel;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -56,6 +53,7 @@ public class LandingFragment extends Fragment {
         TextView profileName = view.findViewById(R.id.profileName);
         ImageView avatar = view.findViewById(R.id.avatar);
         Button role = view.findViewById(R.id.role);
+        swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
 
         ArrayList<SlideModel> slideModels = new ArrayList<>();
         slideModels.add(new SlideModel(R.drawable.activity_landing_carosel1, ScaleTypes.FIT));
@@ -64,47 +62,39 @@ public class LandingFragment extends Fragment {
         imageSlider.setImageList(slideModels, ScaleTypes.FIT);
 
         Toolbar toolbar = view.findViewById(R.id.toolbar);
-        // If you want to set the toolbar in the Fragment, setHasOptionsMenu(true) is needed
         setHasOptionsMenu(true);
-        // The hosting Activity should handle setting the toolbar if needed
-        // Init data for free course
+
         mRecyclerFreeCourse = view.findViewById(R.id.recyclerFreeCourseView);
+        mRecyclerFreeCourse1 = view.findViewById(R.id.recyclerFreeCourseView1);
         mFreeCourses = new ArrayList<>();
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create()).build();
+        mCourseAdapter = new CourseAdapter(requireActivity(), mFreeCourses);
+        mRecyclerFreeCourse.setAdapter(mCourseAdapter);
+        mRecyclerFreeCourse1.setAdapter(mCourseAdapter);
+        mRecyclerFreeCourse.setLayoutManager(new LinearLayoutManager(requireActivity(), RecyclerView.HORIZONTAL, false));
+        mRecyclerFreeCourse1.setLayoutManager(new LinearLayoutManager(requireActivity(), RecyclerView.HORIZONTAL, false));
 
-        CourseApiService courseApiService = retrofit.create(CourseApiService.class);
-        Call<CoursesResponse> courseListCall = courseApiService.getCourses();
-
-        courseListCall.enqueue(new Callback<CoursesResponse>() {
+        landingViewModel = new ViewModelProvider(requireActivity()).get(LandingViewModel.class); // Use activity scope
+        landingViewModel.getCourses().observe(getViewLifecycleOwner(), new Observer<ArrayList<Course>>() {
             @Override
-            public void onResponse(Call<CoursesResponse> call, Response<CoursesResponse> response) {
-                if (!response.isSuccessful()) {
-                    Toast.makeText(requireActivity(), "Error: " + response.code(), Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                CoursesResponse coursesResponse = response.body();
-                if (coursesResponse != null && coursesResponse.getData() != null) {
-                    mFreeCourses.addAll(coursesResponse.getData());
-                    mCourseAdapter = new CourseAdapter(requireActivity(), mFreeCourses);
-                    mRecyclerFreeCourse.setAdapter(mCourseAdapter);
-                    mRecyclerFreeCourse.setLayoutManager(new LinearLayoutManager(requireActivity(), RecyclerView.HORIZONTAL, false));
-                } else {
-                    Toast.makeText(requireActivity(), "No courses found", Toast.LENGTH_SHORT).show();
-                }
+            public void onChanged(ArrayList<Course> courses) {
+                mFreeCourses.clear();
+                mFreeCourses.addAll(courses);
+                mCourseAdapter.notifyDataSetChanged();
             }
+        });
 
+        // Set up swipe to refresh
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
-            public void onFailure(Call<CoursesResponse> call, Throwable throwable) {
-                Toast.makeText(requireActivity(), "Request failed: " + throwable.getMessage(), Toast.LENGTH_SHORT).show();
+            public void onRefresh() {
+                landingViewModel.refreshCourses();
+                swipeRefreshLayout.setRefreshing(false);
             }
         });
 
         profileCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Handle click event, navigate to ProfileActivities.class
                 Intent intent = new Intent(getActivity(), ProfileActivity.class);
                 startActivity(intent);
             }

@@ -1,12 +1,10 @@
-package com.example.unicourse.models;
+package com.example.unicourse.models.course;
+import com.example.unicourse.models.lecture.Lecture;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 
 public class Course {

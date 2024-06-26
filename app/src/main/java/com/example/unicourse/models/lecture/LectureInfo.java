@@ -1,4 +1,6 @@
-package com.example.unicourse.models;
+package com.example.unicourse.models.lecture;
+
+import com.example.unicourse.models.Feeback;
 
 import java.util.ArrayList;
 

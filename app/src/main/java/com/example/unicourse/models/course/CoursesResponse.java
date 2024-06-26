@@ -1,5 +1,6 @@
-package com.example.unicourse.models;
+package com.example.unicourse.models.course;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CoursesResponse {
@@ -32,8 +33,8 @@ public class CoursesResponse {
         this.status = status;
     }
 
-    public List<Course> getData() {
-        return data;
+    public ArrayList<Course> getData() {
+        return (ArrayList<Course>) data;
     }
 
     public void setData(List<Course> data) {

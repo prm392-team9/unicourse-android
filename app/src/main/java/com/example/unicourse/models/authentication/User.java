@@ -1,4 +1,4 @@
-package com.example.unicourse.models;
+package com.example.unicourse.models.authentication;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

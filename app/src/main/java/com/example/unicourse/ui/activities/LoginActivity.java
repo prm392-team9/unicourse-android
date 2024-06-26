@@ -16,10 +16,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.example.unicourse.R;
-import com.example.unicourse.models.LoginRequest;
-import com.example.unicourse.models.LoginResponse;
-import com.example.unicourse.models.User;
-import com.example.unicourse.services.ApiConstants;
+import com.example.unicourse.models.authentication.LoginRequest;
+import com.example.unicourse.models.authentication.LoginResponse;
+import com.example.unicourse.models.authentication.User;
+import com.example.unicourse.contants.ApiConstants;
 import com.example.unicourse.services.AuthApiService;
 
 import retrofit2.Call;

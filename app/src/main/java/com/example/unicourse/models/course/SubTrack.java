@@ -1,4 +1,4 @@
-package com.example.unicourse.models;
+package com.example.unicourse.models.course;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

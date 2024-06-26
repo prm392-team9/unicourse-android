@@ -1,4 +1,4 @@
-package com.example.unicourse.models;
+package com.example.unicourse.models.authentication;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
