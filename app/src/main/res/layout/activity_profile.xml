@@ -71,7 +71,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_marginLeft="15dp"
-        android:layout_marginTop="120dp"
+        android:layout_marginTop="100dp"
         android:layout_marginRight="15dp"
         android:layout_marginBottom="50dp"
         android:background="@drawable/activity_profile_bg_rounded"
