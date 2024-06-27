@@ -1,6 +1,7 @@
 package com.example.unicourse.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.unicourse.R;
 import com.example.unicourse.models.course.Course;
+import com.example.unicourse.ui.activities.CourseDetailActivity;
 
 import java.util.ArrayList;
 
@@ -44,7 +46,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CardViewHo
         return courses.size();
     }
 
-    public static class CardViewHolder extends RecyclerView.ViewHolder {
+    public class CardViewHolder extends RecyclerView.ViewHolder {
         private ImageView imageView;
         private TextView authorName;
         private TextView courseTitle;
@@ -62,6 +64,16 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CardViewHo
                     .into(imageView);
             authorName.setText(course.getLecture().getFullName()); // Assuming getLecture() returns the author's name
             courseTitle.setText(course.getTitle());
+
+            // Set OnClickListener to navigate to CourseDetailActivity
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(mContext, CourseDetailActivity.class);
+                    intent.putExtra("COURSE_ID", course.get_id());
+                    mContext.startActivity(intent);
+                }
+            });
         }
     }
 }

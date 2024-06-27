@@ -18,6 +18,9 @@
             android:name=".ui.activities.ControllerActivity"
             android:exported="false" />
         <activity
+            android:name=".ui.activities.CourseDetailActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.activities.ProfileActivity"
             android:exported="false" />
         <activity

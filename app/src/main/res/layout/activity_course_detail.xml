@@ -7,7 +7,7 @@
     android:paddingTop="10dp"
     android:background="@color/white"
     android:fitsSystemWindows="true"
-    tools:context=".ui.fragments.CourseDetailFragment">
+    tools:context=".ui.activities.CourseDetailActivity">
 
     <!-- ProgressBar -->
     <ProgressBar
@@ -65,7 +65,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:scaleType="centerCrop"
-                        android:paddingHorizontal="12dp"
+                        android:paddingHorizontal="5dp"
+                        android:paddingVertical="5dp"
                         android:src="@drawable/sample_course" />
                 </androidx.cardview.widget.CardView>
 

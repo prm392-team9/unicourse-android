@@ -22,7 +22,7 @@ public class UnicourseApplication extends AppCompatActivity {
 
             @Override
             public void onTick(long l) {
-                //trong vòng bao nhiêu giây thì thực hiện một công việc nào đó
+
             }
 
             @Override
