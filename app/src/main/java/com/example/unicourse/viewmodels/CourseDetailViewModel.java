@@ -7,8 +7,8 @@ import androidx.lifecycle.ViewModel;
 import com.example.unicourse.contants.ApiConstants;
 import com.example.unicourse.models.course.Course;
 import com.example.unicourse.models.common.CommonResponse;
-
 import com.example.unicourse.services.CourseApiService;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

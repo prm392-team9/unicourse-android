@@ -4,13 +4,14 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
+import com.example.unicourse.ui.activities.CourseDetailActivity;
 import com.example.unicourse.ui.fragments.courseFragments.FragmentCourseInfo;
 import com.example.unicourse.ui.fragments.courseFragments.FragmentCourseOutLine;
 import com.example.unicourse.ui.fragments.courseFragments.FragmentCourseReview;
 
 public class CoursePageAdapter extends FragmentStateAdapter {
 
-    public CoursePageAdapter(@NonNull Fragment fragment) {
+    public CoursePageAdapter(@NonNull CourseDetailActivity fragment) {
         super(fragment);
     }
 
