@@ -30,7 +30,7 @@ public class UnicourseApplication extends AppCompatActivity {
             @Override
             public void onFinish() {
                 //thực hiện khi hoàn thành
-                Intent intent = new Intent(UnicourseApplication.this, ActivitySupportContact.class);
+                Intent intent = new Intent(UnicourseApplication.this, LoginActivity.class);
                 startActivity(intent);
             }
         }.start();
