@@ -109,7 +109,7 @@
     <RelativeLayout
         android:id="@+id/mapCard"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="match_parent"
         android:layout_below="@id/contactInfoCard"
         android:layout_margin="16dp"
         android:background="@drawable/card_background">
