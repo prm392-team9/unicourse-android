@@ -1,8 +1,14 @@
 package com.example.unicourse.models.authentication;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -114,6 +120,14 @@ public class User {
     public void setUpdated_at(String updated_at_str) throws ParseException {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
         this.updated_at = dateFormat.parse(updated_at_str);
+    }
+
+    public void fromJson(JSONObject jsonObject) {
+        try {
+            this.fullName = jsonObject.getString("full_name");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
