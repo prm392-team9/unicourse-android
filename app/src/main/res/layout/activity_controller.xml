@@ -8,6 +8,7 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
+    android:paddingTop="20dp"
     tools:context=".ui.activities.ControllerActivity">
 
     <FrameLayout
@@ -28,7 +29,7 @@
         android:layout_alignParentBottom="true"
         app:menu="@menu/bottom_nav_menu"
         app:labelVisibilityMode="labeled"
-        app:itemIconSize="28dp"
+        app:itemIconSize="24dp"
         android:background="@drawable/bottom_nav_background"
         app:itemIconTint="@color/primary400"
         app:itemTextColor="@color/dark_gray"

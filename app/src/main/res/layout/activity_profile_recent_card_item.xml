@@ -1,0 +1,41 @@
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/recentCardView"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="10dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:background="@android:color/transparent"
+        android:padding="10dp">
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="10dp"
+            android:layout_marginRight="10dp">
+            <ImageView
+                android:id="@+id/recentCourseImage"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/sample_course"
+                android:background="@drawable/activity_profile_recent_item_image"
+                />
+        </androidx.cardview.widget.CardView>
+        <TextView
+            android:id="@+id/recentCourseTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Course Title for the rest of the course"
+            android:maxWidth="120dp"
+            style="@style/titleSize"
+            android:textStyle="bold"
+            android:layout_marginVertical="15dp"
+            />
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
