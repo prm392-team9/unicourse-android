@@ -5,8 +5,8 @@
     android:id="@+id/profileLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
     android:background="@drawable/activity_profile_reverse_layout"
+    android:fitsSystemWindows="true"
     tools:context=".ui.activities.ProfileActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -21,17 +21,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageButton
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:background="@drawable/activity_profile_ic_button_filled"
-            android:contentDescription="Back"
-            android:padding="4dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/activity_profile_ic_back"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+<!--        <ImageButton-->
+<!--            android:id="@+id/backButton"-->
+<!--            android:layout_width="40dp"-->
+<!--            android:layout_height="40dp"-->
+<!--            android:background="@drawable/activity_profile_ic_button_filled"-->
+<!--            android:contentDescription="Back"-->
+<!--            android:padding="4dp"-->
+<!--            android:scaleType="fitCenter"-->
+<!--            android:src="@drawable/activity_profile_ic_back"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent" />-->
 
         <ImageButton
             android:layout_width="40dp"
@@ -83,13 +84,13 @@
         app:layout_constraintTop_toBottomOf="@+id/profileNavigationBar">
 
         <TextView
-            android:id="@+id/userTxt"
+            android:id="@+id/usernameTxt"
             style="@style/titleSize"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:fontFamily="sans-serif-black"
-            android:text="Trần Quang Minh"
+            android:text="Đang cập nhật"
             android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -101,7 +102,7 @@
             android:layout_marginTop="50dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/userTxt">
+            app:layout_constraintTop_toBottomOf="@+id/usernameTxt">
 
             <LinearLayout
                 android:id="@+id/linearLayout"
@@ -151,7 +152,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
                         android:letterSpacing="0.05"
-                        android:text="68 Giờ"
+                        android:text="...Giờ"
                         android:textStyle="bold"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -194,7 +195,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
                         android:letterSpacing="0.05"
-                        android:text="84%"
+                        android:text="..."
                         android:textStyle="bold"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -237,7 +238,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
                         android:letterSpacing="0.05"
-                        android:text="5 Khóa"
+                        android:text="...Khóa"
                         android:textStyle="bold"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -342,14 +343,14 @@
                         app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <!--                <androidx.recyclerview.widget.RecyclerView-->
-                <!--                    android:id="@+id/your_recycler_view"-->
-                <!--                    android:layout_width="match_parent"-->
-                <!--                    android:layout_height="80dp"-->
-                <!--                    android:layout_below="@+id/recentContent"-->
-                <!--                    android:layout_alignParentStart="true"-->
-                <!--                    android:layout_alignParentEnd="true"-->
-                <!--                    android:orientation="horizontal" />-->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recentCourseRV"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:layout_below="@+id/recentContent"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentEnd="true"
+                    android:orientation="horizontal" />
             </RelativeLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -403,16 +404,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:background="@drawable/activity_profile_button_rounded"
-                android:text="ĐĂNG XUẤT"
                 android:letterSpacing="0.1"
                 android:padding="0dp"
+                android:text="ĐĂNG XUẤT"
                 android:textColorHint="@color/white"
                 android:textStyle="bold"
                 app:backgroundTint="@null"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"/>
+                app:layout_constraintStart_toStartOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -428,7 +429,7 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <ImageView
-            android:id="@+id/avatar"
+            android:id="@+id/userImage"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:scaleType="fitXY"
