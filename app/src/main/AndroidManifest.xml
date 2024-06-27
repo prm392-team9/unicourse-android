@@ -21,7 +21,6 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="YOUR_API_KEY" />
-
         <activity
             android:name=".ui.activities.MapsActivity"
             android:exported="false"
@@ -31,7 +30,8 @@
             android:exported="false" />
         <activity
             android:name=".ui.activities.ControllerActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize"/>
         <activity
             android:name=".ui.activities.CourseDetailActivity"
             android:exported="false" />
@@ -40,7 +40,8 @@
             android:exported="false" />
         <activity
             android:name=".ui.activities.LoginActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize"/>
         <activity
             android:name=".UnicourseApplication"
             android:exported="true">

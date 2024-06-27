@@ -1,11 +1,12 @@
-package com.example.unicourse.adapters;
+package com.example.unicourse.viewmodels;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.unicourse.models.ChatRoomDetail;
-import com.example.unicourse.models.ChatRoomDetailResponse;
+import com.example.unicourse.contants.ApiConstants;
+import com.example.unicourse.models.chatroom.ChatRoomDetail;
+import com.example.unicourse.models.chatroom.ChatRoomDetailResponse;
 import com.example.unicourse.services.ChatRoomApiService;
 import com.example.unicourse.services.RetrofitClient;
 
@@ -18,7 +19,7 @@ public class ChatViewModel extends ViewModel {
     private ChatRoomApiService chatRoomApiService;
 
     public ChatViewModel() {
-        chatRoomApiService = RetrofitClient.getClient("http://10.0.2.2:4040/api/").create(ChatRoomApiService.class);
+        chatRoomApiService = RetrofitClient.getClient(ApiConstants.BASE_URL).create(ChatRoomApiService.class);
     }
 
     public LiveData<ChatRoomDetail> getChatRoomDetail(String id) {

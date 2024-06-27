@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.unicourse.R;
-import com.example.unicourse.models.Message;
+import com.example.unicourse.models.chatroom.Message;
 
 import java.util.List;
 
@@ -38,9 +38,12 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
         return messages.size();
     }
 
-    public void updateMessages(List<Message> newMessages) {
+    public void updateMessages(List<Message> newMessages, RecyclerView recyclerView) {
         this.messages = newMessages;
         notifyDataSetChanged();
+        if (!messages.isEmpty()) {
+            recyclerView.scrollToPosition(messages.size() - 1);
+        }
     }
 
     static class ChatViewHolder extends RecyclerView.ViewHolder {

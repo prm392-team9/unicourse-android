@@ -1,6 +1,6 @@
-package com.example.unicourse.models;
+package com.example.unicourse.models.chatroom;
 
-import java.util.List;
+import com.example.unicourse.models.chatroom.ChatRoomDetail;
 
 public class ChatRoomDetailResponse {
     private String message;

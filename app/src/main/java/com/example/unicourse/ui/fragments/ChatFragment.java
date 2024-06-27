@@ -18,8 +18,9 @@ import android.widget.EditText;
 
 import com.example.unicourse.R;
 import com.example.unicourse.adapters.ChatAdapter;
-import com.example.unicourse.adapters.ChatViewModel;
-import com.example.unicourse.models.Message;
+import com.example.unicourse.contants.ApiConstants;
+import com.example.unicourse.viewmodels.ChatViewModel;
+import com.example.unicourse.models.chatroom.Message;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -56,7 +57,7 @@ public class ChatFragment extends Fragment {
 
         chatViewModel.getChatRoomDetail("65ebe4d2d0cb58ef9cb250cc").observe(getViewLifecycleOwner(), chatRoomDetail -> {
             if (chatRoomDetail != null) {
-                chatAdapter.updateMessages(chatRoomDetail.getMessages());
+                chatAdapter.updateMessages(chatRoomDetail.getMessages(), recyclerView);
             }
         });
 
@@ -77,7 +78,7 @@ public class ChatFragment extends Fragment {
         String roomId = "65ebe4d2d0cb58ef9cb250cc"; // Room ID
 
         try {
-            mSocket = IO.socket("http://10.0.2.2:4040");
+            mSocket = IO.socket(ApiConstants.BASE_SOCKET_URL);
             mSocket.connect();
             mSocket.on("newMessage", onNewMessage);
 
@@ -124,7 +125,7 @@ public class ChatFragment extends Fragment {
                             message.fromJson(msg);
                             newMessages.add(message);
                         }
-                        chatAdapter.updateMessages(newMessages);
+                        chatAdapter.updateMessages(newMessages, recyclerView);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -132,7 +133,6 @@ public class ChatFragment extends Fragment {
             }
         }
     };
-
 
     @Override
     public void onDestroy() {

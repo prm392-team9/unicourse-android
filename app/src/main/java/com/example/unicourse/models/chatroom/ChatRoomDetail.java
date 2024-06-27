@@ -1,4 +1,4 @@
-package com.example.unicourse.models;
+package com.example.unicourse.models.chatroom;
 
 import com.example.unicourse.models.authentication.User;
 import com.google.gson.annotations.SerializedName;

@@ -1,7 +1,6 @@
 package com.example.unicourse.services;
 
-import com.example.unicourse.models.ChatRoomDetail;
-import com.example.unicourse.models.ChatRoomDetailResponse;
+import com.example.unicourse.models.chatroom.ChatRoomDetailResponse;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
