@@ -11,6 +11,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.unicourse.ui.fragments.ChatFragment;
 import com.example.unicourse.R;
 import com.example.unicourse.ui.fragments.LandingFragment;
 import com.example.unicourse.ui.fragments.ProfileFragment;
@@ -32,25 +33,24 @@ public class ControllerActivity extends AppCompatActivity {
         landingViewModel = new ViewModelProvider(this).get(LandingViewModel.class);
         landingViewModel.loadCourses(); // Load the courses when the activity is created
 
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                int itemId = item.getItemId();
-                Fragment selectedFragment = null;
+        bottomNavigationView
+                .setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                        int itemId = item.getItemId();
+                        Fragment selectedFragment = null;
 
-                if (itemId == R.id.navHome) {
-                    loadFragment(new LandingFragment(), false);
-                } else if (itemId == R.id.navSearch) {
+                        if (itemId == R.id.navHome) {
+                            loadFragment(new LandingFragment(), false);
+                        } else if (itemId == R.id.navCommunity) {
+                             loadFragment(new ChatFragment(), false);
+                        } else {
+                            loadFragment(new ProfileFragment(), false);
+                        }
 
-                }  else if (itemId == R.id.navCommunity) {
-
-                } else {
-                    loadFragment(new ProfileFragment(), false);
-                }
-
-                return true;
-            }
-        });
+                        return true;
+                    }
+                });
 
         loadFragment(new LandingFragment(), true);
     }

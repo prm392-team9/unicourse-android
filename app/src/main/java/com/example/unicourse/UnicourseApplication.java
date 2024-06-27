@@ -22,6 +22,7 @@ public class UnicourseApplication extends AppCompatActivity {
 
         new CountDownTimer(3000, 1000){
 
+
             @Override
             public void onTick(long l) {
 
@@ -30,7 +31,7 @@ public class UnicourseApplication extends AppCompatActivity {
             @Override
             public void onFinish() {
                 //thực hiện khi hoàn thành
-                Intent intent = new Intent(UnicourseApplication.this, LoginActivity.class);
+                Intent intent = new Intent(UnicourseApplication.this, ControllerActivity.class);
                 startActivity(intent);
             }
         }.start();
