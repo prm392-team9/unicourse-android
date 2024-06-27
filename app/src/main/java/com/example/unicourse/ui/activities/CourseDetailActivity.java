@@ -1,7 +1,6 @@
 package com.example.unicourse.ui.activities;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -67,6 +66,9 @@ public class CourseDetailActivity extends AppCompatActivity {
         ImageView courseImage = findViewById(R.id.mainImageCourse);
         TextView coursePrice = findViewById(R.id.coursePrice);
         TextView originalPrice = findViewById(R.id.originalPrice);
+        ImageView lectureAvatar = findViewById(R.id.lectureAvatar);
+        TextView lectureName = findViewById(R.id.lectureName);
+        TextView lectureCoursesCount = findViewById(R.id.lectureCoursesCount);
 
         courseDetailViewModel = new ViewModelProvider(this).get(CourseDetailViewModel.class);
         courseDetailViewModel.getCourse().observe(this, new Observer<Course>() {
@@ -77,6 +79,12 @@ public class CourseDetailActivity extends AppCompatActivity {
                     Glide.with(CourseDetailActivity.this).load(course.getThumbnail()).into(courseImage);
                     coursePrice.setText(String.format("%,.0f VND", (double) course.getAmount()));
                     originalPrice.setText("34.982 VND"); // Update with actual original price if available
+
+                    // Set lecture details
+                    lectureName.setText(course.getLecture().getFullName());
+                    lectureCoursesCount.setText(course.getLecture().getLecture_info().getMy_course().size() + " khóa học");
+                    Glide.with(CourseDetailActivity.this).load(course.getLecture().getProfile_image()).into(lectureAvatar);
+
                     progressBar.setVisibility(View.GONE); // Hide the progress bar
                 } else {
                     Toast.makeText(CourseDetailActivity.this, "Failed to load course details", Toast.LENGTH_SHORT).show();
@@ -87,7 +95,6 @@ public class CourseDetailActivity extends AppCompatActivity {
         courseDetailViewModel.isLoading().observe(this, new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean isLoading) {
-                Log.d("CourseDetailActivity", "isLoading: " + isLoading);
                 if (isLoading) {
                     progressBar.setVisibility(View.VISIBLE); // Show the progress bar
                 } else {
@@ -105,5 +112,14 @@ public class CourseDetailActivity extends AppCompatActivity {
 
         // Set the back button functionality
         backButton.setOnClickListener(v -> finish());
+
+        // Disable SwipeRefreshLayout while interacting with ViewPager2
+        viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageScrollStateChanged(int state) {
+                super.onPageScrollStateChanged(state);
+                swipeRefreshLayout.setEnabled(state == ViewPager2.SCROLL_STATE_IDLE);
+            }
+        });
     }
 }

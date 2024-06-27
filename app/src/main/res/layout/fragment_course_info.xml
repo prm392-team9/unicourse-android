@@ -5,10 +5,28 @@
     android:padding="16dp">
 
     <TextView
-        android:id="@+id/fragment_info"
-        android:layout_height="wrap_content"
+        android:id="@+id/titleDescription"
         android:layout_width="wrap_content"
-        android:text="Chi Tiết"
-        />
+        android:layout_height="wrap_content"
+        android:text="Title Description"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:layout_marginBottom="8dp"/>
+
+    <TextView
+        android:id="@+id/subTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Subtitle"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:layout_marginBottom="8dp"/>
+
+    <TextView
+        android:id="@+id/subTitleDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Subtitle Description"
+        android:layout_marginBottom="8dp"/>
 
 </LinearLayout>
