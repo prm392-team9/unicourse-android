@@ -1,11 +1,13 @@
 package com.example.unicourse.ui.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,6 +26,7 @@ import com.example.unicourse.models.EnrolledCourseProgressResponse;
 import com.example.unicourse.models.ProfileCourse;
 import com.example.unicourse.models.ProfileResponse;
 import com.example.unicourse.services.UserApiService;
+import com.example.unicourse.ui.activities.CartActivity;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -56,6 +59,12 @@ public class ProfileFragment extends Fragment {
         TextView accomplishAmount = view.findViewById(R.id.accomplishAmount);
         TextView courseAmount = view.findViewById(R.id.courseAmount);
         RecyclerView recentCourseRV = view.findViewById(R.id.recentCourseRV);
+        ImageButton profileCartBtn = view.findViewById(R.id.profileCartBtn);
+
+        profileCartBtn.setOnClickListener(v -> {
+            Intent intent = new Intent(requireActivity(), CartActivity.class);
+            startActivity(intent);
+        });
 
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
         accessToken = sharedPreferences.getString("access_token", null);

@@ -21,6 +21,8 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyCLJYOOtgYN3lK393o5vvn3TG8NVxOb2Y0" />
 
+        <activity android:name=".ui.activities.CartActivity"
+            android:exported="false" />
         <activity
             android:name=".ui.activities.MapsActivity"
             android:exported="false"

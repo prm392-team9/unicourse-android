@@ -1,6 +1,7 @@
 package com.example.unicourse.ui.activities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.ImageButton;
@@ -49,6 +50,7 @@ public class ProfileActivity extends AppCompatActivity {
     private TextView courseAmount = null;
     private RecyclerView recentCourseRV = null;
     private ImageButton goBackBtn = null;
+    private ImageButton cartBtn = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,13 +64,19 @@ public class ProfileActivity extends AppCompatActivity {
         accomplishAmount = findViewById(R.id.accomplishAmount);
         courseAmount = findViewById(R.id.courseAmount);
         recentCourseRV = findViewById(R.id.recentCourseRV);
-        goBackBtn = findViewById(R.id.backButton);
+        goBackBtn = findViewById(R.id.profileBackButton);
+        cartBtn = findViewById(R.id.profileCartBtn);
 
         getUserPrefs();
         renderProfileData();
 
         goBackBtn.setOnClickListener(v -> {
             finish();
+        });
+
+        cartBtn.setOnClickListener(v -> {
+            Intent intent = new Intent(this, CartActivity.class);
+            startActivity(intent);
         });
     }
 
