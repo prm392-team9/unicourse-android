@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,10 +19,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.unicourse.R;
 import com.example.unicourse.adapters.ProfileAdapter;
+import com.example.unicourse.contants.ApiConstants;
 import com.example.unicourse.models.EnrolledCourseProgressResponse;
 import com.example.unicourse.models.ProfileCourse;
 import com.example.unicourse.models.ProfileResponse;
-import com.example.unicourse.services.ApiConstants;
 import com.example.unicourse.services.UserApiService;
 
 import java.io.IOException;
@@ -45,7 +44,7 @@ public class ProfileFragment extends Fragment {
     private String userId = null;
     private ProfileResponse userProfileData = null;
     private ProfileAdapter mProfileAdapter;
-    private ArrayList<ProfileCourse> profileCourses = new ArrayList<>();
+    private final ArrayList<ProfileCourse> profileCourses = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -127,9 +126,9 @@ public class ProfileFragment extends Fragment {
                                 }
                             }
                         }
-                        progressAmount.setText(String.valueOf(progressAmountCount) + " Giờ");
-                        accomplishAmount.setText(String.valueOf(accomplishAmountCount/progressResponse.getData().size() * 100) + "%");
-                        courseAmount.setText(String.valueOf(progressResponse.getData().size()) + " Khóa");
+                        progressAmount.setText(progressAmountCount + " Giờ");
+                        accomplishAmount.setText(accomplishAmountCount / progressResponse.getData().size() * 100 + "%");
+                        courseAmount.setText(progressResponse.getData().size() + " Khóa");
                         mProfileAdapter = new ProfileAdapter(requireActivity(), profileCourses);
                         recentCourseRV.setAdapter(mProfileAdapter);
                         recentCourseRV.setLayoutManager(new LinearLayoutManager(requireActivity(), RecyclerView.HORIZONTAL, false));

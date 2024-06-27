@@ -16,10 +16,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.unicourse.R;
 import com.example.unicourse.adapters.ProfileAdapter;
+import com.example.unicourse.contants.ApiConstants;
 import com.example.unicourse.models.EnrolledCourseProgressResponse;
 import com.example.unicourse.models.ProfileCourse;
 import com.example.unicourse.models.ProfileResponse;
-import com.example.unicourse.services.ApiConstants;
 import com.example.unicourse.services.UserApiService;
 
 import java.io.IOException;
@@ -39,7 +39,7 @@ public class ProfileActivity extends AppCompatActivity {
     private static final String BASE_URL = ApiConstants.BASE_URL;
     private String accessToken = null;
     private String userId = null;
-    private ArrayList<ProfileCourse> profileCourses = new ArrayList<>();
+    private final ArrayList<ProfileCourse> profileCourses = new ArrayList<>();
     private ProfileResponse userProfileData = null;
     private ProfileAdapter mProfileAdapter = null;
     private TextView usernameTxt = null;
@@ -144,9 +144,9 @@ public class ProfileActivity extends AppCompatActivity {
                                 }
                             }
                         }
-                        progressAmount.setText(String.valueOf(progressAmountCount) + " Giờ");
-                        accomplishAmount.setText(String.valueOf(accomplishAmountCount / progressResponse.getData().size() * 100) + "%");
-                        courseAmount.setText(String.valueOf(progressResponse.getData().size()) + " Khóa");
+                        progressAmount.setText(progressAmountCount + " Giờ");
+                        accomplishAmount.setText(accomplishAmountCount / progressResponse.getData().size() * 100 + "%");
+                        courseAmount.setText(progressResponse.getData().size() + " Khóa");
                         mProfileAdapter = new ProfileAdapter(ProfileActivity.this, profileCourses);
                         recentCourseRV.setAdapter(mProfileAdapter);
                         recentCourseRV.setLayoutManager(new LinearLayoutManager(ProfileActivity.this, RecyclerView.HORIZONTAL, false));
