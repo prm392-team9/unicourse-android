@@ -1,6 +1,7 @@
 package com.example.unicourse.ui.activities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.ImageButton;
@@ -18,8 +19,8 @@ import com.example.unicourse.R;
 import com.example.unicourse.adapters.ProfileAdapter;
 import com.example.unicourse.contants.ApiConstants;
 import com.example.unicourse.models.EnrolledCourseProgressResponse;
-import com.example.unicourse.models.ProfileCourse;
-import com.example.unicourse.models.ProfileResponse;
+import com.example.unicourse.models.user.ProfileCourse;
+import com.example.unicourse.models.user.ProfileResponse;
 import com.example.unicourse.services.UserApiService;
 
 import java.io.IOException;
@@ -37,9 +38,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ProfileActivity extends AppCompatActivity {
 
     private static final String BASE_URL = ApiConstants.BASE_URL;
+    private final ArrayList<ProfileCourse> profileCourses = new ArrayList<>();
     private String accessToken = null;
     private String userId = null;
-    private final ArrayList<ProfileCourse> profileCourses = new ArrayList<>();
+    private String username = null;
+    private String userAvt = null;
     private ProfileResponse userProfileData = null;
     private ProfileAdapter mProfileAdapter = null;
     private TextView usernameTxt = null;
@@ -49,6 +52,7 @@ public class ProfileActivity extends AppCompatActivity {
     private TextView courseAmount = null;
     private RecyclerView recentCourseRV = null;
     private ImageButton goBackBtn = null;
+    private ImageButton cartBtn = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,13 +66,22 @@ public class ProfileActivity extends AppCompatActivity {
         accomplishAmount = findViewById(R.id.accomplishAmount);
         courseAmount = findViewById(R.id.courseAmount);
         recentCourseRV = findViewById(R.id.recentCourseRV);
-        goBackBtn = findViewById(R.id.backButton);
+        goBackBtn = findViewById(R.id.profileBackButton);
+        cartBtn = findViewById(R.id.profileCartBtn);
 
         getUserPrefs();
+        usernameTxt.setText(username);
+        Glide.with(this).load(userAvt).into(userImage);
+
         renderProfileData();
 
         goBackBtn.setOnClickListener(v -> {
             finish();
+        });
+
+        cartBtn.setOnClickListener(v -> {
+            Intent intent = new Intent(this, CartActivity.class);
+            startActivity(intent);
         });
     }
 
@@ -76,6 +89,8 @@ public class ProfileActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
         accessToken = sharedPreferences.getString("access_token", null);
         userId = sharedPreferences.getString("user_id", null);
+        username = sharedPreferences.getString("user_full_name", null);
+        userAvt = sharedPreferences.getString("profile_image", null);
     }
 
     private void renderProfileData() {
@@ -99,31 +114,31 @@ public class ProfileActivity extends AppCompatActivity {
         UserApiService userApiService = retrofit.create(UserApiService.class);
 
 //        Load User's information.
-        Call<ProfileResponse> userCall = userApiService.getUser(userId);
-        userCall.enqueue(new Callback<ProfileResponse>() {
-            @Override
-            public void onResponse(Call<ProfileResponse> call, Response<ProfileResponse> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    ProfileResponse profileResponse = response.body();
-                    if (profileResponse.getStatus() == 200) {
-                        userProfileData = profileResponse;
-                        if (userProfileData != null) {
-                            usernameTxt.setText(userProfileData.getData().getFullName());
-                            Glide.with(ProfileActivity.this).load(userProfileData.getData().getProfileImage()).into(userImage);
-                        }
-                    } else {
-                        Toast.makeText(ProfileActivity.this, "Failed to get User data for Profile Screen", Toast.LENGTH_SHORT).show();
-                    }
-                } else {
-                    Toast.makeText(ProfileActivity.this, "Failed to get data from Profile Screen", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ProfileResponse> call, Throwable throwable) {
-                Toast.makeText(ProfileActivity.this, "Failed get User data for Profile Screen", Toast.LENGTH_SHORT).show();
-            }
-        });
+//        Call<ProfileResponse> userCall = userApiService.getUser(userId);
+//        userCall.enqueue(new Callback<ProfileResponse>() {
+//            @Override
+//            public void onResponse(Call<ProfileResponse> call, Response<ProfileResponse> response) {
+//                if (response.isSuccessful() && response.body() != null) {
+//                    ProfileResponse profileResponse = response.body();
+//                    if (profileResponse.getStatus() == 200) {
+//                        userProfileData = profileResponse;
+//                        if (userProfileData != null) {
+//                            usernameTxt.setText(userProfileData.getData().getFullName());
+//                            Glide.with(ProfileActivity.this).load(userProfileData.getData().getProfileImage()).into(userImage);
+//                        }
+//                    } else {
+//                        Toast.makeText(ProfileActivity.this, "Failed to get User data for Profile Screen", Toast.LENGTH_SHORT).show();
+//                    }
+//                } else {
+//                    Toast.makeText(ProfileActivity.this, "Failed to get data from Profile Screen", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<ProfileResponse> call, Throwable throwable) {
+//                Toast.makeText(ProfileActivity.this, "Failed get User data for Profile Screen", Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
 //        Load User's courses' progress.
         Call<EnrolledCourseProgressResponse> progressCall = userApiService.getCourseProgress(userId);
