@@ -3,20 +3,24 @@ package com.example.unicourse.ui.fragments;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
-
+import com.bumptech.glide.Glide;
 import com.example.unicourse.R;
 import com.example.unicourse.adapters.ChatAdapter;
 import com.example.unicourse.contants.ApiConstants;
@@ -26,6 +30,7 @@ import com.example.unicourse.services.ChatRoomApiService;
 import com.example.unicourse.services.RetrofitClient;
 import com.example.unicourse.viewmodels.ChatViewModel;
 import com.example.unicourse.models.chatroom.Message;
+import com.example.unicourse.viewmodels.LandingViewModel;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -48,6 +53,10 @@ public class ChatFragment extends Fragment {
     private ChatAdapter chatAdapter;
     private EditText editTextMessage;
     private Button buttonSend;
+    private ProgressBar progressBar;
+    private TextView roomName;
+    private TextView roomStatus;
+    private ImageButton backButton;
 
     private Socket mSocket;
     private boolean isSendingMessage = false;
@@ -55,7 +64,10 @@ public class ChatFragment extends Fragment {
     private ChatRoomApiService chatRoomService;
     private String userId = null;
     private String accessToken = null;
-    public ChatRoomDetail currentChatRoomDetail;
+    private ChatRoomDetail currentChatRoomDetail;
+    private SwipeRefreshLayout swipeRefreshLayout;
+
+    private ChatViewModel chatViewModelInstance;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -63,16 +75,29 @@ public class ChatFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recyclerView);
         editTextMessage = view.findViewById(R.id.editTextMessage);
         buttonSend = view.findViewById(R.id.buttonSend);
+        progressBar = view.findViewById(R.id.progressBar);
+        roomName = view.findViewById(R.id.roomName);
+        roomStatus = view.findViewById(R.id.roomStatus);
+        swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
+
+        // Retrieve userId and accessToken from SharedPreferences
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
+        userId = sharedPreferences.getString("user_id", null);
+        accessToken = sharedPreferences.getString("access_token", null);
 
         chatViewModel = new ViewModelProvider(this).get(ChatViewModel.class);
         chatAdapter = new ChatAdapter(new ArrayList<>());
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(chatAdapter);
 
+        progressBar.setVisibility(View.VISIBLE);
         chatViewModel.getChatRoomDetail(chatRoomId).observe(getViewLifecycleOwner(), chatRoomDetail -> {
             if (chatRoomDetail != null) {
                 currentChatRoomDetail = chatRoomDetail;
+                roomName.setText(chatRoomDetail.getName());
+                roomStatus.setText(chatRoomDetail.getStatus());
                 chatAdapter.updateMessages(chatRoomDetail.getMessages(), recyclerView);
+                progressBar.setVisibility(View.GONE);
             }
         });
 
@@ -86,12 +111,10 @@ public class ChatFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         // Retrieve userId and accessToken from SharedPreferences
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
         userId = sharedPreferences.getString("user_id", null);
         accessToken = sharedPreferences.getString("access_token", null);
-
         // Initialize the chatRoomService
         chatRoomService = RetrofitClient.getClient(ApiConstants.BASE_URL, accessToken).create(ChatRoomApiService.class);
 
@@ -115,6 +138,7 @@ public class ChatFragment extends Fragment {
     private void sendMessage() {
         if (isSendingMessage) return; // Prevent multiple sends
         isSendingMessage = true;
+        progressBar.setVisibility(View.VISIBLE);
 
         String messageText = editTextMessage.getText().toString().trim();
         if (chatRoomId != null && !messageText.isEmpty() && currentChatRoomDetail != null) {
@@ -183,12 +207,14 @@ public class ChatFragment extends Fragment {
                         }
                     }
                     isSendingMessage = false;
+                    progressBar.setVisibility(View.GONE);
                 }
 
                 @Override
                 public void onFailure(Call<ChatRoomSendMessageResponse> call, Throwable t) {
                     Toast.makeText(getContext(), "Failed to send message", Toast.LENGTH_SHORT).show();
                     isSendingMessage = false;
+                    progressBar.setVisibility(View.GONE);
                 }
             });
         } else {
