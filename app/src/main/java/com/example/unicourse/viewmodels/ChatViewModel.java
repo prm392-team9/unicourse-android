@@ -1,8 +1,12 @@
 package com.example.unicourse.viewmodels;
+import android.app.Application;
+import android.content.Context;
+import android.content.SharedPreferences;
 
+import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 
 import com.example.unicourse.contants.ApiConstants;
 import com.example.unicourse.models.chatroom.ChatRoomDetail;
@@ -14,12 +18,20 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ChatViewModel extends ViewModel {
+public class ChatViewModel extends AndroidViewModel {
     private MutableLiveData<ChatRoomDetail> chatRoomDetail = new MutableLiveData<>();
     private ChatRoomApiService chatRoomApiService;
+    private String accessToken;
 
-    public ChatViewModel() {
-        chatRoomApiService = RetrofitClient.getClient(ApiConstants.BASE_URL).create(ChatRoomApiService.class);
+    public ChatViewModel(@NonNull Application application) {
+        super(application);
+
+        // Retrieve accessToken from SharedPreferences
+        SharedPreferences sharedPreferences = application.getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
+        accessToken = sharedPreferences.getString("access_token", null);
+
+        // Initialize chatRoomApiService with accessToken
+        chatRoomApiService = RetrofitClient.getClient(ApiConstants.BASE_URL, accessToken).create(ChatRoomApiService.class);
     }
 
     public LiveData<ChatRoomDetail> getChatRoomDetail(String id) {
