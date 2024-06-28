@@ -23,8 +23,8 @@ import com.example.unicourse.R;
 import com.example.unicourse.adapters.ProfileAdapter;
 import com.example.unicourse.contants.ApiConstants;
 import com.example.unicourse.models.EnrolledCourseProgressResponse;
-import com.example.unicourse.models.ProfileCourse;
-import com.example.unicourse.models.ProfileResponse;
+import com.example.unicourse.models.user.ProfileCourse;
+import com.example.unicourse.models.user.ProfileResponse;
 import com.example.unicourse.services.UserApiService;
 import com.example.unicourse.ui.activities.CartActivity;
 
@@ -45,6 +45,8 @@ public class ProfileFragment extends Fragment {
     private static final String BASE_URL = ApiConstants.BASE_URL;
     private String accessToken = null;
     private String userId = null;
+    private String username = null;
+    private String userAvt = null;
     private ProfileResponse userProfileData = null;
     private ProfileAdapter mProfileAdapter;
     private final ArrayList<ProfileCourse> profileCourses = new ArrayList<>();
@@ -69,6 +71,11 @@ public class ProfileFragment extends Fragment {
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
         accessToken = sharedPreferences.getString("access_token", null);
         userId = sharedPreferences.getString("user_id", null);
+        username = sharedPreferences.getString("user_full_name", null);
+        userAvt = sharedPreferences.getString("profile_image", null);
+
+        usernameTxt.setText(username);
+        Glide.with(this).load(userAvt).into(userImage);
 
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .addInterceptor(new Interceptor() {
@@ -90,62 +97,64 @@ public class ProfileFragment extends Fragment {
         UserApiService userApiService = retrofit.create(UserApiService.class);
 
 //        Load User's information.
-        Call<ProfileResponse> userCall = userApiService.getUser(userId);
-        userCall.enqueue(new Callback<ProfileResponse>() {
-            @Override
-            public void onResponse(Call<ProfileResponse> call, Response<ProfileResponse> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    ProfileResponse profileResponse = response.body();
-                    if (profileResponse.getStatus() == 200) {
-                        userProfileData = profileResponse;
-                        if (userProfileData != null) {
-                            usernameTxt.setText(userProfileData.getData().getFullName());
-                            Glide.with(requireActivity()).load(userProfileData.getData().getProfileImage()).into(userImage);
-                        }
-                    } else {
-                        Toast.makeText(requireActivity(), "Failed to get User data for Profile Screen", Toast.LENGTH_SHORT).show();
-                    }
-                } else {
-                    Toast.makeText(requireActivity(), "Failed to get data from Profile Screen", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ProfileResponse> call, Throwable throwable) {
-                Toast.makeText(requireActivity(), "Failed get User data for Profile Screen", Toast.LENGTH_SHORT).show();
-            }
-        });
+//        Call<ProfileResponse> userCall = userApiService.getUser(userId);
+//        userCall.enqueue(new Callback<ProfileResponse>() {
+//            @Override
+//            public void onResponse(Call<ProfileResponse> call, Response<ProfileResponse> response) {
+//                if (response.isSuccessful() && response.body() != null) {
+//                    ProfileResponse profileResponse = response.body();
+//                    if (profileResponse.getStatus() == 200) {
+//                        userProfileData = profileResponse;
+//                        if (userProfileData != null) {
+//                            usernameTxt.setText(userProfileData.getData().getFullName());
+//                            Glide.with(requireActivity()).load(userProfileData.getData().getProfileImage()).into(userImage);
+//                        }
+//                    } else {
+//                        Toast.makeText(requireActivity(), "Failed to get User data for Profile Screen", Toast.LENGTH_SHORT).show();
+//                    }
+//                } else {
+//                    Toast.makeText(requireActivity(), "Failed to get data from Profile Screen", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<ProfileResponse> call, Throwable throwable) {
+//                Toast.makeText(requireActivity(), "Failed get User data for Profile Screen", Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
 //        Load User's courses' progress.
         Call<EnrolledCourseProgressResponse> progressCall = userApiService.getCourseProgress(userId);
         progressCall.enqueue(new Callback<EnrolledCourseProgressResponse>() {
             @Override
             public void onResponse(Call<EnrolledCourseProgressResponse> call, Response<EnrolledCourseProgressResponse> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    EnrolledCourseProgressResponse progressResponse = response.body();
-                    if (progressResponse.getStatus() == 200) {
-                        int progressAmountCount = 0;
-                        int accomplishAmountCount = 0;
-                        if (progressResponse.getData() != null) {
-                            for (EnrolledCourseProgressResponse.EnrolledCourse course : progressResponse.getData()) {
-                                profileCourses.add(new ProfileCourse(course.getCourse().getTitle(), course.getCourse().getThumbnail()));
-                                progressAmountCount += course.getProgress();
-                                if (course.isCompleted()) {
-                                    accomplishAmountCount++;
+                if (isAdded()) {
+                    if (response.isSuccessful() && response.body() != null) {
+                        EnrolledCourseProgressResponse progressResponse = response.body();
+                        if (progressResponse.getStatus() == 200) {
+                            int progressAmountCount = 0;
+                            int accomplishAmountCount = 0;
+                            if (progressResponse.getData() != null) {
+                                for (EnrolledCourseProgressResponse.EnrolledCourse course : progressResponse.getData()) {
+                                    profileCourses.add(new ProfileCourse(course.getCourse().getTitle(), course.getCourse().getThumbnail()));
+                                    progressAmountCount += course.getProgress();
+                                    if (course.isCompleted()) {
+                                        accomplishAmountCount++;
+                                    }
                                 }
                             }
+                            progressAmount.setText(progressAmountCount + " Giờ");
+                            accomplishAmount.setText(accomplishAmountCount / progressResponse.getData().size() * 100 + "%");
+                            courseAmount.setText(progressResponse.getData().size() + " Khóa");
+                            mProfileAdapter = new ProfileAdapter(requireActivity(), profileCourses);
+                            recentCourseRV.setAdapter(mProfileAdapter);
+                            recentCourseRV.setLayoutManager(new LinearLayoutManager(requireActivity(), RecyclerView.HORIZONTAL, false));
+                        } else {
+                            Toast.makeText(requireActivity(), "Failed to get User's course progress", Toast.LENGTH_SHORT).show();
                         }
-                        progressAmount.setText(progressAmountCount + " Giờ");
-                        accomplishAmount.setText(accomplishAmountCount / progressResponse.getData().size() * 100 + "%");
-                        courseAmount.setText(progressResponse.getData().size() + " Khóa");
-                        mProfileAdapter = new ProfileAdapter(requireActivity(), profileCourses);
-                        recentCourseRV.setAdapter(mProfileAdapter);
-                        recentCourseRV.setLayoutManager(new LinearLayoutManager(requireActivity(), RecyclerView.HORIZONTAL, false));
                     } else {
-                        Toast.makeText(requireActivity(), "Failed to get User's course progress", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(requireActivity(), "Failed to get progress data from Profile Screen", Toast.LENGTH_SHORT).show();
                     }
-                } else {
-                    Toast.makeText(requireActivity(), "Failed to get progress data from Profile Screen", Toast.LENGTH_SHORT).show();
                 }
             }
 

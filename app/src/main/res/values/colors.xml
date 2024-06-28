@@ -24,4 +24,7 @@
     <color name="gray_600">#FF757575</color>
     <color name="ic_launcher_background">#FFFFFF</color>
     <color name="light_green">#DAE9DA</color>
+    <color name="light_red">#F8D7DA</color>
+    <color name="red">#FF000D</color>
+
 </resources>

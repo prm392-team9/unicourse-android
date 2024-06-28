@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.unicourse.R;
-import com.example.unicourse.models.ProfileCourse;
+import com.example.unicourse.models.user.ProfileCourse;
 
 import java.util.ArrayList;
 
