@@ -42,7 +42,7 @@ public class CourseDetailActivity extends AppCompatActivity {
         ViewPager2 viewPager = findViewById(R.id.viewPager);
         swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
         progressBar = findViewById(R.id.progressBar);
-        ImageView backButton = findViewById(R.id.backButton);
+        ImageView backButton = findViewById(R.id.profileBackButton);
 
         CoursePageAdapter adapter = new CoursePageAdapter(this);
         viewPager.setAdapter(adapter);

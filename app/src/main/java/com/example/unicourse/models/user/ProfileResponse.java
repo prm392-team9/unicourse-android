@@ -1,4 +1,4 @@
-package com.example.unicourse.models;
+package com.example.unicourse.models.user;
 
 import com.google.gson.annotations.SerializedName;
 

@@ -1,7 +1,6 @@
 package com.example.unicourse.ui.activities;
 
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
@@ -26,7 +25,7 @@ public class ActivitySupportContact extends AppCompatActivity implements OnMapRe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_support_contact);
 
-        ImageButton backButton = findViewById(R.id.backButton);
+        ImageButton backButton = findViewById(R.id.profileBackButton);
         backButton.setOnClickListener(v -> finish());
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()

@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.auth0.jwt.JWT;
@@ -43,6 +44,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_login);
 
         usernameEditText = findViewById(R.id.username);
@@ -136,7 +138,7 @@ public class LoginActivity extends AppCompatActivity {
         String userId = decodedJWT.getClaim("_id").asString();
         String email = decodedJWT.getClaim("email").asString();
         String fullName = decodedJWT.getClaim("fullName").asString();
-        String profileName = decodedJWT.getClaim("fullName").asString();  // Assuming profileName is same as fullName
+        String profileName = decodedJWT.getClaim("fullName").asString(); // Assuming profileName is same as fullName
         String profileImage = decodedJWT.getClaim("profile_image").asString();
         String role = decodedJWT.getClaim("role").asString();
 
