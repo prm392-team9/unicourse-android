@@ -9,8 +9,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.unicourse.ui.activities.ActivitySupportContact;
 import com.example.unicourse.ui.activities.ControllerActivity;
+import com.example.unicourse.ui.activities.CourseVideoActivity;
 import com.example.unicourse.ui.activities.LoginActivity;
 import com.example.unicourse.ui.activities.MapsActivity;
+import com.example.unicourse.ui.fragments.LandingFragment;
 
 public class UnicourseApplication extends AppCompatActivity {
 
@@ -31,7 +33,7 @@ public class UnicourseApplication extends AppCompatActivity {
             @Override
             public void onFinish() {
                 //thực hiện khi hoàn thành
-                Intent intent = new Intent(UnicourseApplication.this, LoginActivity.class);
+                Intent intent = new Intent(UnicourseApplication.this, ControllerActivity.class);
                 startActivity(intent);
             }
         }.start();
