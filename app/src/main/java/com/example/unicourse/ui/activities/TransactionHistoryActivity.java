@@ -3,6 +3,7 @@ package com.example.unicourse.ui.activities;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -34,10 +35,9 @@ public class TransactionHistoryActivity extends AppCompatActivity {
 
     private static final String BASE_URL = ApiConstants.BASE_URL;
     private RecyclerView transactionHistoryRV;
-    private String userProfileName;
-    private String userProfileImage;
     private String accessToken;
     private TransactionHistoryAdapter transactionAdapter;
+    private ImageButton backBtn;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -46,6 +46,9 @@ public class TransactionHistoryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_transaction_history);
 
         transactionHistoryRV = findViewById(R.id.transactionHistoryRV);
+        backBtn = findViewById(R.id.cartBackBtn);
+
+        backBtn.setOnClickListener(v -> finish());
 
         getUserPrefs();
         renderData();
@@ -54,8 +57,6 @@ public class TransactionHistoryActivity extends AppCompatActivity {
     private void getUserPrefs() {
         SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
         accessToken = sharedPreferences.getString("access_token", null);
-        userProfileName = sharedPreferences.getString("user_full_name", null);
-        userProfileImage = sharedPreferences.getString("profile_image", null);
     }
 
     private void renderData() {
@@ -85,7 +86,7 @@ public class TransactionHistoryActivity extends AppCompatActivity {
                 if (response.isSuccessful() && response.body() != null) {
                     CommonResponse<ArrayList<TransactionHistory>> userTransactionResponse = response.body();
                     if (String.valueOf(userTransactionResponse.getStatus()).equals("200")) {
-                        transactionAdapter = new TransactionHistoryAdapter(TransactionHistoryActivity.this, userTransactionResponse.getData(), userProfileName, userProfileImage);
+                        transactionAdapter = new TransactionHistoryAdapter(TransactionHistoryActivity.this, userTransactionResponse.getData());
                         transactionHistoryRV.setAdapter(transactionAdapter);
                         transactionHistoryRV.setLayoutManager(new LinearLayoutManager(TransactionHistoryActivity.this, RecyclerView.VERTICAL, false));
                     }

@@ -44,5 +44,17 @@ public class Cart {
         private int amount;
         private String thumbnail;
         private boolean isSelected = false;
+
+        public int getAmount() {
+            return amount;
+        }
+    }
+
+    public int getTotalPrice() {
+        int total = 0;
+        for (Item item : items) {
+            total += item.getAmount();
+        }
+        return total;
     }
 }

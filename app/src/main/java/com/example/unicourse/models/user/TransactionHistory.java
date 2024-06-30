@@ -2,9 +2,9 @@ package com.example.unicourse.models.user;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,14 +13,15 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class TransactionHistory {
+public class TransactionHistory implements Serializable {
     @SerializedName("_id")
     private String id;
-    private UserId userId;
+    @SerializedName("userId")
+    private User user;
     @SerializedName("process_date")
     private Date processDate;
     @SerializedName("items_checkout")
-    private ArrayList<ItemCheckout> itemsCheckout;
+    private ArrayList<Item> itemsCheckout;
     @SerializedName("payment_method")
     private String paymentMethod;
     @SerializedName("total_old_amount")
@@ -43,24 +44,23 @@ public class TransactionHistory {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    static
-    class UserId {
+    public class User {
         @SerializedName("_id")
-        private String id;
+        private String userId;
         String email;
         String fullName;
         String profileName;
         @SerializedName("profile_image")
         String profileImage;
+
     }
 
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    static
-    class ItemCheckout {
+    public class Item {
         @SerializedName("_id")
-        private String id;
+        private String itemId;
         private String title;
         private String titleDescription;
         private String subTitle;

@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.bumptech.glide.Glide;
 import com.example.unicourse.R;
 import com.example.unicourse.adapters.ChatAdapter;
@@ -66,6 +67,7 @@ public class ChatFragment extends Fragment {
     private String accessToken = null;
     private ChatRoomDetail currentChatRoomDetail;
     private SwipeRefreshLayout swipeRefreshLayout;
+    private LottieAnimationView loadingAnimation;
 
     private ChatViewModel chatViewModelInstance;
 
@@ -79,6 +81,7 @@ public class ChatFragment extends Fragment {
         roomName = view.findViewById(R.id.roomName);
         roomStatus = view.findViewById(R.id.roomStatus);
         swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
+        loadingAnimation = view.findViewById(R.id.loadingAnimation);
 
         // Retrieve userId and accessToken from SharedPreferences
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
@@ -90,15 +93,29 @@ public class ChatFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(chatAdapter);
 
-        progressBar.setVisibility(View.VISIBLE);
+        showLoading();
         chatViewModel.getChatRoomDetail(chatRoomId).observe(getViewLifecycleOwner(), chatRoomDetail -> {
             if (chatRoomDetail != null) {
                 currentChatRoomDetail = chatRoomDetail;
                 roomName.setText(chatRoomDetail.getName());
                 roomStatus.setText(chatRoomDetail.getStatus());
                 chatAdapter.updateMessages(chatRoomDetail.getMessages(), recyclerView);
-                progressBar.setVisibility(View.GONE);
+                hideLoading();
             }
+        });
+
+        swipeRefreshLayout.setOnRefreshListener(() -> {
+            showLoading();
+            chatViewModel.getChatRoomDetail(chatRoomId).observe(getViewLifecycleOwner(), chatRoomDetail -> {
+                if (chatRoomDetail != null) {
+                    currentChatRoomDetail = chatRoomDetail;
+                    roomName.setText(chatRoomDetail.getName());
+                    roomStatus.setText(chatRoomDetail.getStatus());
+                    chatAdapter.updateMessages(chatRoomDetail.getMessages(), recyclerView);
+                    hideLoading();
+                }
+            });
+            swipeRefreshLayout.setRefreshing(false);
         });
 
         buttonSend.setOnClickListener(v -> {
@@ -138,7 +155,7 @@ public class ChatFragment extends Fragment {
     private void sendMessage() {
         if (isSendingMessage) return; // Prevent multiple sends
         isSendingMessage = true;
-        progressBar.setVisibility(View.VISIBLE);
+        showLoading();
 
         String messageText = editTextMessage.getText().toString().trim();
         if (chatRoomId != null && !messageText.isEmpty() && currentChatRoomDetail != null) {
@@ -207,14 +224,14 @@ public class ChatFragment extends Fragment {
                         }
                     }
                     isSendingMessage = false;
-                    progressBar.setVisibility(View.GONE);
+                    hideLoading();
                 }
 
                 @Override
                 public void onFailure(Call<ChatRoomSendMessageResponse> call, Throwable t) {
                     Toast.makeText(getContext(), "Failed to send message", Toast.LENGTH_SHORT).show();
                     isSendingMessage = false;
-                    progressBar.setVisibility(View.GONE);
+                    hideLoading();
                 }
             });
         } else {
@@ -265,5 +282,16 @@ public class ChatFragment extends Fragment {
 
         mSocket.off("newMessage", onNewMessage);
         mSocket.disconnect();
+    }
+
+    private void showLoading() {
+        loadingAnimation.setVisibility(View.VISIBLE);
+        loadingAnimation.playAnimation();
+
+    }
+
+    private void hideLoading() {
+        loadingAnimation.setVisibility(View.GONE);
+        loadingAnimation.pauseAnimation();
     }
 }

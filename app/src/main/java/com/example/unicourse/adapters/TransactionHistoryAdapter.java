@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,21 +18,19 @@ import com.example.unicourse.R;
 import com.example.unicourse.models.user.TransactionHistory;
 
 import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Locale;
 
 public class TransactionHistoryAdapter extends RecyclerView.Adapter<TransactionHistoryAdapter.TransactionHistoryViewHolder> {
 
     private final  Context mContext;
     private final ArrayList<TransactionHistory> transactionHistories;
-    private final String userProfileName;
-    private final String userProfileImg;
 
-    public TransactionHistoryAdapter(Context mContext, ArrayList<TransactionHistory> transactionHistories, String userProfileName, String userProfileImg) {
+    public TransactionHistoryAdapter(Context mContext, ArrayList<TransactionHistory> transactionHistories) {
         this.mContext = mContext;
         this.transactionHistories = transactionHistories;
-        this.userProfileName = userProfileName;
-        this.userProfileImg = userProfileImg;
     }
 
     @NonNull
@@ -50,7 +49,7 @@ public class TransactionHistoryAdapter extends RecyclerView.Adapter<TransactionH
 
     @Override
     public int getItemCount() {
-        return 0;
+        return transactionHistories.size();
     }
 
     public class TransactionHistoryViewHolder extends RecyclerView.ViewHolder {
@@ -80,29 +79,38 @@ public class TransactionHistoryAdapter extends RecyclerView.Adapter<TransactionH
         }
 
         public void bind(TransactionHistory record) {
-//            itemTitle.setText(record.getItemsCheckout().get(0).getItem().getTitle());
-//            Glide.with(itemThumnail.getContext())
-//                    .load(record.getItemsCheckout().get(0).getItem().getThumbnail())
-//                    .into(itemThumnail);
+            itemTitle.setText(record.getItemsCheckout().get(0).getTitle());
+            Glide.with(itemThumnail.getContext())
+                    .load(record.getItemsCheckout().get(0).getThumbnail())
+                    .into(itemThumnail);
             itemFinalPrice.setText(formatNumber(record.getTotalNewAmount()));
             itemOldPrice.setText(formatNumber(record.getTotalOldAmount()));
-            dateTV.setText(record.getProcessDate().toString());
-            totalItemTV.setText(String.valueOf(record.getItemsCheckout().size()));
-            itemTotalPrice.setText(String.valueOf(record.getTotalNewAmount()));
+            dateTV.setText(formatDateToVietnamese(record.getProcessDate()));
+            totalItemTV.setText(String.valueOf(record.getItemsCheckout().size()) + " Khoá học");
+            itemTotalPrice.setText(formatNumber(record.getTotalNewAmount()));
             Glide.with(userImage.getContext())
-                    .load(userProfileImg)
+                    .load(record.getUser().getProfileImage())
                     .into(userImage);
-            usernameTxt.setText(userProfileName);
+            usernameTxt.setText(record.getUser().getFullName());
 
             itemOldPrice.setPaintFlags(itemOldPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 
             detailBtn.setOnClickListener(v -> {
-//                detail logic here.
+                Toast.makeText(mContext, "We're working on it!", Toast.LENGTH_SHORT).show();
             });
         }
 
         private String formatNumber(int number) {
             return NumberFormat.getNumberInstance(Locale.GERMAN).format(number) + " VNĐ";
+        }
+
+        private String formatDateToVietnamese(Date date) {
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", new Locale("vi", "VN"));
+            String formattedDate = sdf.format(date);
+            String[] parts = formattedDate.split("/");
+            String month = parts[1];
+            String vietnameseDate =parts[0] + " T." + month + " " + parts[2];
+            return vietnameseDate;
         }
     }
 }
