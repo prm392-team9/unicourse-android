@@ -1,5 +1,8 @@
 package com.example.unicourse.ui.activities;
 
+import static com.example.unicourse.R.*;
+
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -24,6 +27,8 @@ import com.paypal.android.sdk.payments.PaymentActivity;
 import org.json.JSONObject;
 
 import java.math.BigDecimal;
+import java.text.NumberFormat;
+import java.util.Locale;
 
 import vn.zalopay.sdk.Environment;
 import vn.zalopay.sdk.ZaloPayError;
@@ -41,8 +46,9 @@ public class PaymentScreenActivity extends AppCompatActivity {
     private RadioButton radioPayPal, radioApplePay, radioZaloPay;
     private Button btnPayment;
     private ImageButton backBtn = null;
-    TextView txtTongTien;
+    TextView cartItemFinalPriceVND, cartItemFinalPriceUSD;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,6 +73,8 @@ public class PaymentScreenActivity extends AppCompatActivity {
         radioZaloPay = findViewById(R.id.radioZaloPay);
         btnPayment = findViewById(R.id.btnPayment);
         backBtn = findViewById(R.id.backBtn);
+        cartItemFinalPriceVND = findViewById(R.id.cartItemFinalPriceVND);
+        cartItemFinalPriceUSD = findViewById(R.id.cartItemFinalPriceUSD);
 
         // Set up radio buttons
         radioPayPal.setOnClickListener(v -> selectPaymentMethod(radioPayPal));
@@ -76,15 +84,27 @@ public class PaymentScreenActivity extends AppCompatActivity {
         Intent intentData = getIntent();
         Integer total = intentData.getIntExtra("total", 0);
         String totalString = Integer.toString(total);
+        String totalUSDString = Integer.toString(total / 25000);
+
+        // Format to VNĐ
+        NumberFormat vndFormat = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
+        String totalVnd = vndFormat.format(total);
+        cartItemFinalPriceVND.setText(totalVnd);
+
+        // Format to USD
+        NumberFormat usdFormat = NumberFormat.getCurrencyInstance(Locale.US);
+        String totalUsd = usdFormat.format(total / 25000);
+        cartItemFinalPriceUSD.setText(totalUsd);
 
         // Set up add new card button
         btnPayment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (radioPayPal.isChecked()) {
-                    processPayPalPayment(totalString);
+                    processPayPalPayment(totalUSDString);
                 } else if (radioZaloPay.isChecked()) {
-                    processZaloPayPayment(totalString);
+                    Toast.makeText(PaymentScreenActivity.this, "Zalo Pay đang phát triển", Toast.LENGTH_SHORT).show();
+//                    processZaloPayPayment(totalString);
                 } else if (radioApplePay.isChecked()) {
                     Toast.makeText(PaymentScreenActivity.this, "Apple Pay đang phát triển", Toast.LENGTH_SHORT).show();
                 }

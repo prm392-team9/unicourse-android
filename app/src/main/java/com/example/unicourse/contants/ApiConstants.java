@@ -8,6 +8,5 @@ public class ApiConstants {
     // Use when run backend deployed
     public static final String BASE_URL = "https://unicourse-server-test.up.railway.app/api/";
     public static final String BASE_SOCKET_URL = "https://unicourse-server-test.up.railway.app";
-
 }
 
