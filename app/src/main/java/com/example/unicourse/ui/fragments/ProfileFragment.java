@@ -143,8 +143,13 @@ public class ProfileFragment extends Fragment {
                                     }
                                 }
                             }
+
+                            if (progressResponse.getData().size() > 0) {
+                                accomplishAmount.setText(accomplishAmountCount / progressResponse.getData().size() * 100 + "%");
+                            } else {
+                                accomplishAmount.setText("0%");
+                            }
                             progressAmount.setText(progressAmountCount + " Giờ");
-                            accomplishAmount.setText(accomplishAmountCount / progressResponse.getData().size() * 100 + "%");
                             courseAmount.setText(progressResponse.getData().size() + " Khóa");
                             mProfileAdapter = new ProfileAdapter(requireActivity(), profileCourses);
                             recentCourseRV.setAdapter(mProfileAdapter);

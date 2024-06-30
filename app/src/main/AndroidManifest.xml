@@ -24,6 +24,8 @@
 
         <activity android:name=".ui.activities.CartActivity"
             android:exported="false"/>
+        <activity android:name=".ui.activities.RegisterActivity"
+            android:exported="false"/>
         <activity
             android:name=".ui.activities.MapsActivity"
             android:exported="false"

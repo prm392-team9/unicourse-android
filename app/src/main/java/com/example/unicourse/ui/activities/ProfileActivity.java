@@ -159,8 +159,13 @@ public class ProfileActivity extends AppCompatActivity {
                                 }
                             }
                         }
+
+                        if (progressResponse.getData().size() > 0) {
+                            accomplishAmount.setText(accomplishAmountCount / progressResponse.getData().size() * 100 + "%");
+                        } else {
+                            accomplishAmount.setText("0%");
+                        }
                         progressAmount.setText(progressAmountCount + " Giờ");
-                        accomplishAmount.setText(accomplishAmountCount / progressResponse.getData().size() * 100 + "%");
                         courseAmount.setText(progressResponse.getData().size() + " Khóa");
                         mProfileAdapter = new ProfileAdapter(ProfileActivity.this, profileCourses);
                         recentCourseRV.setAdapter(mProfileAdapter);

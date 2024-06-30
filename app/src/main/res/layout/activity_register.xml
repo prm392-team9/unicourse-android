@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.activities.LoginActivity"
+    android:background="@drawable/activity_default_layout">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="90dp"
+        app:cardCornerRadius="80dp"
+        app:cardElevation="0dp"
+        android:layout_centerHorizontal="true">
+        <ImageView
+            android:layout_width="80dp"
+
+            android:layout_height="80dp"
+            android:src="@mipmap/ic_launcher"/>
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/titleText"
+        android:layout_below="@id/logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="unicourse"
+        android:textAllCaps="true"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif-black"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/primary200"
+        android:layout_centerHorizontal="true"/>
+
+
+    <TextView
+        android:id="@+id/subtitleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nền tảng học tập trực tuyến"
+        android:layout_below="@id/titleText"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:textAlignment="center"
+        android:textColor="@color/primary400"/>
+
+    <EditText
+        android:id="@+id/username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Username"
+        android:layout_below="@id/subtitleText"
+        android:layout_marginTop="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp"
+        android:padding="12dp"
+        android:background="@drawable/activity_login_edittext_background"/>
+
+    <RelativeLayout
+        android:id="@+id/passwordLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/username"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp">
+
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Password"
+            android:padding="12dp"
+            android:background="@drawable/activity_login_edittext_background"
+            android:inputType="textPassword"/>
+
+        <ImageView
+            android:id="@+id/password_toggle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_visibility_off"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="16dp"
+            android:padding="12dp"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/confirmPasswordLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/passwordLayout"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp">
+
+        <EditText
+            android:id="@+id/confirmPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Confirm Password"
+            android:padding="12dp"
+            android:background="@drawable/activity_login_edittext_background"
+            android:inputType="textPassword"/>
+
+        <ImageView
+            android:id="@+id/confirm_password_toggle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_visibility_off"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="16dp"
+            android:padding="12dp"/>
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/registerButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Đăng ký"
+        android:layout_below="@id/confirmPasswordLayout"
+        android:layout_marginTop="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp"
+        android:background="@drawable/activity_login_button_background"
+        android:textColor="@android:color/white"
+        app:backgroundTint="@null"/>
+
+    <Button
+        android:id="@+id/loginButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Đăng nhập"
+        android:layout_below="@id/registerButton"
+        android:layout_marginTop="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp"
+        android:background="@drawable/activity_login_button_background"
+        android:textColor="@android:color/white"
+        app:backgroundTint="@null"/>
+
+</RelativeLayout>

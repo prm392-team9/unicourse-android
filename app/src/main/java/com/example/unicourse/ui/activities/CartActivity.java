@@ -48,7 +48,6 @@ public class CartActivity extends AppCompatActivity {
     private TextView usernameTxt = null;
     private RecyclerView cartRecyclerView = null;
     private TextView finalPriceTxt = null;
-    private TextView oldPriceTxt = null;
     private Button checkoutBtn = null;
     private Button selectAllBtn = null;
     private ImageButton editBtn = null;
@@ -170,6 +169,7 @@ public class CartActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<CommonResponse<Cart>> call, Throwable throwable) {
                 Toast.makeText(CartActivity.this, "Failed to load data in Cart: " + throwable.getMessage(), Toast.LENGTH_SHORT).show();
+                System.out.println(throwable.getMessage());
             }
         });
     }
