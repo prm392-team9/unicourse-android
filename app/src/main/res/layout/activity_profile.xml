@@ -401,6 +401,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <Button
+                android:id="@+id/logoutBtn"
                 style="@style/titleSize"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"

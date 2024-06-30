@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -55,6 +56,7 @@ public class ProfileActivity extends AppCompatActivity {
     private ImageButton goBackBtn = null;
     private ImageButton cartBtn = null;
     private ConstraintLayout historyContainer;
+    private Button logoutBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +73,7 @@ public class ProfileActivity extends AppCompatActivity {
         goBackBtn = findViewById(R.id.profileBackButton);
         cartBtn = findViewById(R.id.profileCartBtn);
         historyContainer = findViewById(R.id.historyContainer);
+        logoutBtn = findViewById(R.id.logoutBtn);
 
         historyContainer.setOnClickListener(v -> {
             Intent intent = new Intent(this, TransactionHistoryActivity.class);
@@ -90,6 +93,16 @@ public class ProfileActivity extends AppCompatActivity {
         cartBtn.setOnClickListener(v -> {
             Intent intent = new Intent(this, CartActivity.class);
             startActivity(intent);
+        });
+
+        logoutBtn.setOnClickListener(v -> {
+            SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.clear();
+            editor.apply();
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+            finish();
         });
     }
 
