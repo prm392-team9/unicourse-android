@@ -64,7 +64,7 @@ public class CartActivity extends AppCompatActivity {
         userImage = findViewById(R.id.userImage);
         usernameTxt = findViewById(R.id.usernameTxt);
         cartRecyclerView = findViewById(R.id.cartRecyclerView);
-        finalPriceTxt = findViewById(R.id.finalPrice);
+        finalPriceTxt = findViewById(R.id.itemTotalPrice);
         checkoutBtn = findViewById(R.id.checkoutBtn);
         totalItemBadge = findViewById(R.id.totalItemBadge);
         editBtn = findViewById(R.id.cartEditBtn);
