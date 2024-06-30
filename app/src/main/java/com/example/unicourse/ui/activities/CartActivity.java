@@ -1,6 +1,7 @@
 package com.example.unicourse.ui.activities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
@@ -100,7 +101,11 @@ public class CartActivity extends AppCompatActivity {
         });
 
         checkoutBtn.setOnClickListener(v -> {
-//            Checkout button function here
+            // Handle checkout action send final price to PaymentScreenActivity
+            Integer total = cartData.getTotalPrice();
+            Intent intent = new Intent(CartActivity.this, PaymentScreenActivity.class);
+            intent.putExtra("total", total);
+            startActivity(intent);
         });
 
         getUserPrefs();

@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@drawable/activity_default_layout"
+    tools:context=".ui.activities.PaymentScreenActivity">
+
+    <!-- Toolbar -->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:theme="@style/Theme.Unicourse"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:maxButtonHeight="@dimen/actionBarSize"
+        app:titleTextColor="@color/black">
+        <ImageButton
+            android:id="@+id/backBtn"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:background="@drawable/activity_profile_ic_button_filled"
+            android:contentDescription="Back"
+            android:padding="4dp"
+            android:layout_marginRight="10dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/activity_profile_ic_back"/>
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:text="Thanh toán"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold"/>
+    </androidx.appcompat.widget.Toolbar>
+
+    <!-- Title -->
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="16dp"
+        android:text="Thanh Toán"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <!-- Subtitle -->
+    <TextView
+        android:id="@+id/tvSubtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="8dp"
+        android:text="Chọn hình thức thanh toán"
+        android:textColor="@color/black"
+        android:textSize="16sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp">
+        <!-- Payment Options -->
+        <RadioGroup
+            android:id="@+id/radioGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="vertical">
+
+            <!-- PayPal -->
+            <RadioButton
+                android:id="@+id/radioPayPal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:buttonTint="@color/colorPrimary"
+                android:drawableStart="@drawable/activity_payment_ic_paypal"
+                android:padding="16dp"
+                android:text="PayPal"
+                android:textSize="18sp" />
+
+            <!-- Apple Pay -->
+            <RadioButton
+                android:id="@+id/radioApplePay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:buttonTint="@color/colorPrimary"
+                android:drawableStart="@drawable/activity_payment_ic_applepay"
+                android:padding="16dp"
+                android:text="Apple Pay"
+                android:textSize="18sp" />
+
+            <!-- Zalo Pay -->
+            <RadioButton
+                android:id="@+id/radioZaloPay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:buttonTint="@color/colorPrimary"
+                android:drawableStart="@drawable/activity_payment_ic_zalo"
+                android:padding="16dp"
+                android:text="Zalo Pay"
+                android:textSize="18sp" />
+        </RadioGroup>
+
+        <!-- Add New Card Button -->
+        <Button
+            android:id="@+id/btnPayment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="24dp"
+            android:padding="16dp"
+            android:text="Thanh toán"
+            android:textColor="@android:color/white"
+            android:background="@drawable/activity_profile_button_rounded"
+            android:textSize="18sp"
+            app:backgroundTint="@null"/>
+    </LinearLayout>
+
+</LinearLayout>
