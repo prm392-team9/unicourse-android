@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -53,6 +54,7 @@ public class ProfileActivity extends AppCompatActivity {
     private RecyclerView recentCourseRV = null;
     private ImageButton goBackBtn = null;
     private ImageButton cartBtn = null;
+    private ConstraintLayout historyContainer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +70,12 @@ public class ProfileActivity extends AppCompatActivity {
         recentCourseRV = findViewById(R.id.recentCourseRV);
         goBackBtn = findViewById(R.id.profileBackButton);
         cartBtn = findViewById(R.id.profileCartBtn);
+        historyContainer = findViewById(R.id.historyContainer);
+
+        historyContainer.setOnClickListener(v -> {
+            Intent intent = new Intent(this, TransactionHistoryActivity.class);
+            startActivity(intent);
+        });
 
         getUserPrefs();
         usernameTxt.setText(username);
@@ -159,8 +167,13 @@ public class ProfileActivity extends AppCompatActivity {
                                 }
                             }
                         }
+
+                        if (progressResponse.getData().size() > 0) {
+                            accomplishAmount.setText(accomplishAmountCount / progressResponse.getData().size() * 100 + "%");
+                        } else {
+                            accomplishAmount.setText("0%");
+                        }
                         progressAmount.setText(progressAmountCount + " Giờ");
-                        accomplishAmount.setText(accomplishAmountCount / progressResponse.getData().size() * 100 + "%");
                         courseAmount.setText(progressResponse.getData().size() + " Khóa");
                         mProfileAdapter = new ProfileAdapter(ProfileActivity.this, profileCourses);
                         recentCourseRV.setAdapter(mProfileAdapter);
