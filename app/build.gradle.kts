@@ -42,6 +42,7 @@ android {
 dependencies {
     implementation("org.projectlombok:lombok:1.18.22")
     implementation(libs.swiperefreshlayout)
+    implementation(fileTree(mapOf("dir" to "C:\\ZaloPayLibs", "include" to listOf("*.aar", "*.jar"), "exclude" to listOf(""))))
     annotationProcessor("org.projectlombok:lombok:1.18.22")
     implementation("com.google.android.gms:play-services-maps:18.0.2")
     implementation("com.google.android.gms:play-services-location:21.0.1")
@@ -61,6 +62,9 @@ dependencies {
     implementation("androidx.cardview:cardview:1.0.0")
     implementation("androidx.appcompat:appcompat:1.2.0")
     implementation("com.airbnb.android:lottie:3.7.2")
+    configurations.maybeCreate("default")
+    artifacts.add("default", file("zpdk-release.aar"))
+    implementation ("com.paypal.sdk:paypal-android-sdk:2.16.0")
     implementation(libs.material)
     implementation(libs.activity)
     implementation(libs.constraintlayout)

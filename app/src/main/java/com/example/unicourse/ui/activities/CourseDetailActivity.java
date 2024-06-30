@@ -100,18 +100,22 @@ public class CourseDetailActivity extends AppCompatActivity {
                     if ("free".equalsIgnoreCase(course.getType())) {
                         addToCartCard.setVisibility(View.GONE);
                     } else {
-                        addToCartCard.setVisibility(View.VISIBLE);
+                        addToCartCard.setVisibility(View.GONE);
+                        enrollButton.setText("Thêm vào giỏ hàng");
                     }
 
                     hideLoading(); // Hide loading animation
 
                     // When the user clicks "Học ngay"
                     enrollButton.setOnClickListener(v -> {
-                        Intent intent = new Intent(CourseDetailActivity.this, CourseVideoActivity.class);
-                        intent.putExtra("COURSE_ID", courseId);
-                        startActivity(intent);
+                        if (course.getType() != null && "free".equalsIgnoreCase(course.getType())) {
+                            Intent intent = new Intent(CourseDetailActivity.this, CourseVideoActivity.class);
+                            intent.putExtra("COURSE_ID", courseId);
+                            startActivity(intent);
+                        } else {
+                            Toast.makeText(CourseDetailActivity.this, "Thêm vào giỏ hàng thành công", Toast.LENGTH_SHORT).show();
+                        }
                     });
-
                 } else {
                     Toast.makeText(CourseDetailActivity.this, "Failed to load course details", Toast.LENGTH_SHORT).show();
                 }

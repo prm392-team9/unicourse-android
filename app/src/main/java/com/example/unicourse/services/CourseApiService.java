@@ -12,6 +12,9 @@ public interface CourseApiService {
     @GET("course/free-course")
     Call<CoursesResponse> getCourses();
 
+    @GET("course/get-all-course-fee")
+    Call<CoursesResponse> getProCourses();
+
     @GET("course/{id}")
     Call<CommonResponse<Course>> getDetailCourse(@Path("id") String courseId);
 }

@@ -39,7 +39,6 @@
                 android:layout_height="13dp"
                 android:src="@drawable/activity_cart_checkbox_ic_checked"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/cartCheckBox"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
