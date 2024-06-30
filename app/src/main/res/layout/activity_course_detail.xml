@@ -9,14 +9,6 @@
     android:fitsSystemWindows="true"
     tools:context=".ui.activities.CourseDetailActivity">
 
-    <!-- ProgressBar -->
-    <ProgressBar
-        android:id="@+id/progressBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:visibility="gone" />
-
     <!-- SwipeRefreshLayout -->
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefreshLayout"
@@ -49,7 +41,7 @@
                         android:layout_height="30dp"
                         android:padding="5dp"
                         android:layout_alignParentStart="true"
-                        android:background="@color/gray_200"
+                        android:background="@color/primaryLighter"
                         android:layout_alignParentTop="true"
                         android:src="@drawable/ic_back" />
                 </androidx.cardview.widget.CardView>
@@ -213,7 +205,6 @@
                             android:layout_gravity="center_vertical" />
                     </LinearLayout>
 
-
                     <!-- Tabs -->
                     <com.google.android.material.tabs.TabLayout
                         android:id="@+id/tabLayout"
@@ -223,17 +214,36 @@
                         app:tabIndicatorColor="@android:color/holo_blue_dark"
                         app:tabSelectedTextColor="@android:color/holo_blue_dark"
                         app:tabTextColor="@android:color/darker_gray"
-                        android:layout_marginTop="16dp"/>
+                        android:layout_marginTop="16dp" />
                     <!-- View Pager -->
                     <androidx.viewpager2.widget.ViewPager2
                         android:id="@+id/viewPager"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_below="@id/tabLayout"/>
+                        android:layout_below="@id/tabLayout" />
                 </LinearLayout>
             </LinearLayout>
         </ScrollView>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <!-- Overlay to block user interaction -->
+    <View
+        android:id="@+id/loadingOverlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#80000000"
+        android:visibility="gone" />
+
+    <!-- Lottie Animation for loading -->
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/loadingAnimation"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_centerInParent="true"
+        app:lottie_rawRes="@raw/loading_animation"
+        app:lottie_autoPlay="false"
+        app:lottie_loop="true"
+        android:visibility="gone" />
 
     <!-- Bottom Bar -->
     <LinearLayout
@@ -247,6 +257,7 @@
         android:orientation="horizontal"
         android:paddingHorizontal="16dp">
         <androidx.cardview.widget.CardView
+            android:id="@+id/addToCartCard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
@@ -260,9 +271,11 @@
                 android:backgroundTint="@color/gray_200"
                 android:padding="10dp"
                 android:scaleType="fitXY"
-                android:src="@drawable/cart_icon" />
+                android:src="@drawable/cart_icon"
+                android:contentDescription="Thêm vào giỏ" />
         </androidx.cardview.widget.CardView>
         <Button
+            android:id="@+id/enrollButton"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@drawable/gradient_background"
@@ -272,6 +285,7 @@
             android:textColor="@android:color/white"
             android:textSize="16sp"
             android:paddingVertical="10dp"
-            app:backgroundTint="@null" />
+            app:backgroundTint="@null"
+            android:contentDescription="Học ngay" />
     </LinearLayout>
 </RelativeLayout>

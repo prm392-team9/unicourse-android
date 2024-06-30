@@ -1,7 +1,9 @@
 package com.example.unicourse.ui.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -9,11 +11,13 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.bumptech.glide.Glide;
 import com.example.unicourse.R;
 import com.example.unicourse.adapters.CoursePageAdapter;
@@ -21,13 +25,18 @@ import com.example.unicourse.models.course.Course;
 import com.example.unicourse.viewmodels.CourseDetailViewModel;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
+import com.google.gson.Gson;
 
 public class CourseDetailActivity extends AppCompatActivity {
     private static final String ARG_COURSE_ID = "COURSE_ID";
+    private static final String EXTRA_COURSE = "EXTRA_COURSE";
     private String courseId;
     private CourseDetailViewModel courseDetailViewModel;
     private SwipeRefreshLayout swipeRefreshLayout;
     private ProgressBar progressBar;
+    private LottieAnimationView loadingAnimation;
+    private CardView addToCartCard;
+    private Button enrollButton;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -41,8 +50,10 @@ public class CourseDetailActivity extends AppCompatActivity {
         TabLayout tabLayout = findViewById(R.id.tabLayout);
         ViewPager2 viewPager = findViewById(R.id.viewPager);
         swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
-        progressBar = findViewById(R.id.progressBar);
+        loadingAnimation = findViewById(R.id.loadingAnimation);
         ImageView backButton = findViewById(R.id.profileBackButton);
+        addToCartCard = findViewById(R.id.addToCartCard);
+        enrollButton = findViewById(R.id.enrollButton);
 
         CoursePageAdapter adapter = new CoursePageAdapter(this);
         viewPager.setAdapter(adapter);
@@ -78,14 +89,29 @@ public class CourseDetailActivity extends AppCompatActivity {
                     courseTitle.setText(course.getTitle());
                     Glide.with(CourseDetailActivity.this).load(course.getThumbnail()).into(courseImage);
                     coursePrice.setText(String.format("%,.0f VND", (double) course.getAmount()));
-                    originalPrice.setText("34.982 VND"); // Update with actual original price if available
+                    originalPrice.setText("0 VND"); // Update with actual original price if available
 
                     // Set lecture details
                     lectureName.setText(course.getLecture().getFullName());
                     lectureCoursesCount.setText(course.getLecture().getLecture_info().getMy_course().size() + " khóa học");
                     Glide.with(CourseDetailActivity.this).load(course.getLecture().getProfile_image()).into(lectureAvatar);
 
-                    progressBar.setVisibility(View.GONE); // Hide the progress bar
+                    // Hide add to cart if the course is free
+                    if ("free".equalsIgnoreCase(course.getType())) {
+                        addToCartCard.setVisibility(View.GONE);
+                    } else {
+                        addToCartCard.setVisibility(View.VISIBLE);
+                    }
+
+                    hideLoading(); // Hide loading animation
+
+                    // When the user clicks "Học ngay"
+                    enrollButton.setOnClickListener(v -> {
+                        Intent intent = new Intent(CourseDetailActivity.this, CourseVideoActivity.class);
+                        intent.putExtra("COURSE_ID", courseId);
+                        startActivity(intent);
+                    });
+
                 } else {
                     Toast.makeText(CourseDetailActivity.this, "Failed to load course details", Toast.LENGTH_SHORT).show();
                 }
@@ -96,9 +122,9 @@ public class CourseDetailActivity extends AppCompatActivity {
             @Override
             public void onChanged(Boolean isLoading) {
                 if (isLoading) {
-                    progressBar.setVisibility(View.VISIBLE); // Show the progress bar
+                    showLoading(); // Show loading animation
                 } else {
-                    progressBar.setVisibility(View.GONE); // Hide the progress bar
+                    hideLoading(); // Hide loading animation
                 }
             }
         });
@@ -121,5 +147,16 @@ public class CourseDetailActivity extends AppCompatActivity {
                 swipeRefreshLayout.setEnabled(state == ViewPager2.SCROLL_STATE_IDLE);
             }
         });
+    }
+
+    private void showLoading() {
+        loadingAnimation.setVisibility(View.VISIBLE);
+        loadingAnimation.playAnimation();
+
+    }
+
+    private void hideLoading() {
+        loadingAnimation.setVisibility(View.GONE);
+        loadingAnimation.pauseAnimation();
     }
 }
