@@ -5,6 +5,9 @@ import com.example.unicourse.models.common.CommonResponse;
 import com.example.unicourse.models.user.Cart;
 import com.example.unicourse.models.user.DeleteCartResponse;
 import com.example.unicourse.models.user.ProfileResponse;
+import com.example.unicourse.models.user.TransactionHistory;
+
+import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -26,4 +29,7 @@ public interface UserApiService {
             @Path("cartId") String cartId,
             @Path("courseId") String courseId
     );
+
+    @GET("transactions/user")
+    Call<CommonResponse<ArrayList<TransactionHistory>>> getTransactionHistory();
 }

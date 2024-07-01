@@ -1,6 +1,8 @@
 package com.example.unicourse.adapters;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Paint;
 import android.view.LayoutInflater;
@@ -140,9 +142,12 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
                         if (response.isSuccessful() && response.body() != null) {
                             CommonResponse<DeleteCartResponse> deleteCartResponse = response.body();
                             if (String.valueOf(deleteCartResponse.getStatus()).equals("200")) {
-                                carts.remove(cart);
-                                CartAdapter newAdapter = new CartAdapter(mContext, carts, inEditMode, cartId);
-                                ((RecyclerView) itemView.getParent()).setAdapter(newAdapter);
+//                                carts.remove(cart);
+                                ((Activity) mContext).recreate();
+//                                CartAdapter newAdapter = new CartAdapter(mContext, carts, inEditMode, cartId);
+//                                ((RecyclerView) itemView.getParent()).setAdapter(newAdapter);
+//                                notifyItemRemoved(getAdapterPosition());
+//                                notifyItemRangeChanged(getAdapterPosition(), carts.size());
                             }
                         }
                     }

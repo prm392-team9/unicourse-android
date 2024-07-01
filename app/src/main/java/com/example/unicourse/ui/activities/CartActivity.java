@@ -50,11 +50,12 @@ public class CartActivity extends AppCompatActivity {
     private TextView usernameTxt = null;
     private RecyclerView cartRecyclerView = null;
     private TextView finalPriceTxt = null;
-    private TextView totalItemBadge = null;
+    private TextView oldPriceTxt = null;
     private Button checkoutBtn = null;
     private Button selectAllBtn = null;
     private ImageButton editBtn = null;
     private ImageButton backBtn = null;
+    private TextView totalItemBadge = null;
     private CartAdapter cartAdapter = null;
 
     @Override
@@ -66,7 +67,7 @@ public class CartActivity extends AppCompatActivity {
         userImage = findViewById(R.id.userImage);
         usernameTxt = findViewById(R.id.usernameTxt);
         cartRecyclerView = findViewById(R.id.cartRecyclerView);
-        finalPriceTxt = findViewById(R.id.finalPrice);
+        finalPriceTxt = findViewById(R.id.itemTotalPrice);
         checkoutBtn = findViewById(R.id.checkoutBtn);
         totalItemBadge = findViewById(R.id.totalItemBadge);
         editBtn = findViewById(R.id.cartEditBtn);

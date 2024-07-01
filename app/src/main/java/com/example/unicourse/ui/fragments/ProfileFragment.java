@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -27,6 +28,7 @@ import com.example.unicourse.models.user.ProfileCourse;
 import com.example.unicourse.models.user.ProfileResponse;
 import com.example.unicourse.services.UserApiService;
 import com.example.unicourse.ui.activities.CartActivity;
+import com.example.unicourse.ui.activities.TransactionHistoryActivity;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -62,6 +64,12 @@ public class ProfileFragment extends Fragment {
         TextView courseAmount = view.findViewById(R.id.courseAmount);
         RecyclerView recentCourseRV = view.findViewById(R.id.recentCourseRV);
         ImageButton profileCartBtn = view.findViewById(R.id.profileCartBtn);
+        ConstraintLayout historyContainer = view.findViewById(R.id.historyContainer);
+
+        historyContainer.setOnClickListener(v -> {
+            Intent intent = new Intent(requireActivity(), TransactionHistoryActivity.class);
+            startActivity(intent);
+        });
 
         profileCartBtn.setOnClickListener(v -> {
             Intent intent = new Intent(requireActivity(), CartActivity.class);
@@ -143,8 +151,13 @@ public class ProfileFragment extends Fragment {
                                     }
                                 }
                             }
+
+                            if (progressResponse.getData().size() > 0) {
+                                accomplishAmount.setText(accomplishAmountCount / progressResponse.getData().size() * 100 + "%");
+                            } else {
+                                accomplishAmount.setText("0%");
+                            }
                             progressAmount.setText(progressAmountCount + " Giờ");
-                            accomplishAmount.setText(accomplishAmountCount / progressResponse.getData().size() * 100 + "%");
                             courseAmount.setText(progressResponse.getData().size() + " Khóa");
                             mProfileAdapter = new ProfileAdapter(requireActivity(), profileCourses);
                             recentCourseRV.setAdapter(mProfileAdapter);
