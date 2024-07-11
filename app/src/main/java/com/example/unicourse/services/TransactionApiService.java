@@ -5,8 +5,10 @@ import com.example.unicourse.models.transaction.TransactionResponse;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
+import retrofit2.http.GET;
 
 public interface TransactionApiService {
+
     @POST("transactions/pay")
     Call<TransactionResponse> payWithPaypal(@Body TransactionRequest body);
 

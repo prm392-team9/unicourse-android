@@ -9,11 +9,26 @@
     android:fitsSystemWindows="true"
     tools:context=".ui.activities.CourseDetailActivity">
 
+    <ImageButton
+        android:id="@+id/profileBackButton"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:background="@drawable/activity_profile_ic_button_filled"
+        android:contentDescription="Back"
+        android:padding="4dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/activity_profile_ic_back"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <!-- SwipeRefreshLayout -->
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginBottom="10dp"
+        android:layout_below="@id/profileBackButton">
 
         <!-- Course Header -->
         <ScrollView
@@ -26,25 +41,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-
-                <!-- Back Button -->
-                <androidx.cardview.widget.CardView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp"
-                    app:cardCornerRadius="40dp"
-                    android:layout_marginBottom="5dp"
-                    app:cardElevation="0dp">
-                    <ImageView
-                        android:id="@+id/profileBackButton"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:padding="5dp"
-                        android:layout_alignParentStart="true"
-                        android:background="@color/primaryLighter"
-                        android:layout_alignParentTop="true"
-                        android:src="@drawable/ic_back" />
-                </androidx.cardview.widget.CardView>
 
                 <!-- Main Course Image -->
                 <androidx.cardview.widget.CardView

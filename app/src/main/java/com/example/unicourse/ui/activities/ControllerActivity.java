@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.unicourse.ui.fragments.ChatFragment;
 import com.example.unicourse.R;
+import com.example.unicourse.ui.fragments.ContactFragment;
 import com.example.unicourse.ui.fragments.LandingFragment;
 import com.example.unicourse.ui.fragments.ProfileFragment;
 import com.example.unicourse.viewmodels.CourseDetailViewModel;
@@ -44,8 +45,12 @@ public class ControllerActivity extends AppCompatActivity {
                             loadFragment(new LandingFragment(), false);
                         } else if (itemId == R.id.navCommunity) {
                              loadFragment(new ChatFragment(), false);
-                        } else {
+                        } else if (itemId == R.id.navProfile){
                             loadFragment(new ProfileFragment(), false);
+                        } else if (itemId == R.id.navContact) {
+                            loadFragment(new ContactFragment(), false);
+                        } else {
+                            loadFragment(new LandingFragment(), false);
                         }
 
                         return true;
