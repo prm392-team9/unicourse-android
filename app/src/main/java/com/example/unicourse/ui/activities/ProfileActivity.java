@@ -103,6 +103,7 @@ public class ProfileActivity extends AppCompatActivity {
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
             finish();
+            Toast.makeText(this, "Logged out successfully", Toast.LENGTH_SHORT).show();
         });
     }
 
