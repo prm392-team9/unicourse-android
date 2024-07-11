@@ -8,11 +8,11 @@
         android:title="Trang chủ"/>
 
     <item
-        android:id="@+id/navSearch"
+        android:id="@+id/navContact"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:icon="@drawable/bottom_nav_search"
-        android:title="Tìm kiếm"/>
+        android:icon="@drawable/bottom_nav_location"
+        android:title="Liên hệ"/>
 
     <item
         android:id="@+id/navCommunity"

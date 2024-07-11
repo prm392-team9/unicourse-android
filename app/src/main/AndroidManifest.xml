@@ -46,17 +46,13 @@
 
         <activity
             android:name=".ui.activities.CartActivity"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".ui.activities.RegisterActivity"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".ui.activities.TransactionHistoryActivity"
-            android:exported="false"/>
-        <activity
-            android:name=".ui.activities.MapsActivity"
-            android:exported="false"
-            android:label="@string/title_activity_maps" />
+            android:exported="false" />
         <activity
             android:name=".ui.activities.ActivitySupportContact"
             android:exported="false" />

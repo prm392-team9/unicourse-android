@@ -55,6 +55,7 @@ public class ProfileActivity extends AppCompatActivity {
     private RecyclerView recentCourseRV = null;
     private ImageButton goBackBtn = null;
     private ImageButton cartBtn = null;
+    private ImageButton historyForwardBtn = null;
     private ConstraintLayout historyContainer;
     private Button logoutBtn;
 
@@ -72,10 +73,16 @@ public class ProfileActivity extends AppCompatActivity {
         recentCourseRV = findViewById(R.id.recentCourseRV);
         goBackBtn = findViewById(R.id.profileBackButton);
         cartBtn = findViewById(R.id.profileCartBtn);
+        historyForwardBtn = findViewById(R.id.historyForwardBtn);
         historyContainer = findViewById(R.id.historyContainer);
         logoutBtn = findViewById(R.id.logoutBtn);
 
         historyContainer.setOnClickListener(v -> {
+            Intent intent = new Intent(this, TransactionHistoryActivity.class);
+            startActivity(intent);
+        });
+
+        historyForwardBtn.setOnClickListener(v -> {
             Intent intent = new Intent(this, TransactionHistoryActivity.class);
             startActivity(intent);
         });

@@ -285,12 +285,13 @@
                 <ImageView
                     android:layout_width="30dp"
                     android:layout_height="20dp"
-                    android:layout_marginEnd="20dp"
+                    android:layout_marginEnd="24dp"
                     android:scaleType="fitCenter"
                     android:src="@drawable/activity_profile_ic_forward"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="1.0" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <RelativeLayout
@@ -336,12 +337,13 @@
                     <ImageView
                         android:layout_width="30dp"
                         android:layout_height="20dp"
-                        android:layout_marginEnd="20dp"
+                        android:layout_marginEnd="24dp"
                         android:scaleType="fitCenter"
                         android:src="@drawable/activity_profile_ic_forward"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="1.0" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.recyclerview.widget.RecyclerView
@@ -389,15 +391,20 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.483" />
 
-                <ImageView
+                <ImageButton
+                    android:id="@+id/historyForwardBtn"
                     android:layout_width="30dp"
-                    android:layout_height="20dp"
-                    android:layout_marginEnd="20dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/activity_profile_ic_button_filled"
+                    android:padding="5dp"
                     android:scaleType="fitCenter"
                     android:src="@drawable/activity_profile_ic_forward"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintHorizontal_bias="0.919"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="1.0" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <Button
