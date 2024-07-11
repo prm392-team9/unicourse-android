@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.InputType;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -43,6 +44,7 @@ public class RegisterActivity extends AppCompatActivity {
     private Button loginBtn = null;
     private ImageView passwordToggle;
     private ImageView confirmPasswordToggle;
+    private CheckBox rememberMeCheckbox;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -57,6 +59,7 @@ public class RegisterActivity extends AppCompatActivity {
         loginBtn = findViewById(R.id.loginButton);
         passwordToggle = findViewById(R.id.password_toggle);
         confirmPasswordToggle = findViewById(R.id.confirm_password_toggle);
+        rememberMeCheckbox = findViewById(R.id.rememberMeCheckbox);
 
         registerBtn.setOnClickListener(v -> {
             String username = usernameTxt.getText().toString();
@@ -81,7 +84,8 @@ public class RegisterActivity extends AppCompatActivity {
                 } else if (!matcher.matches()) {
                     Toast.makeText(this, "Invalid email address!", Toast.LENGTH_SHORT).show();
                 } else {
-                    registerUser(username, password);
+                    boolean rememberMe = rememberMeCheckbox.isChecked();
+                    registerUser(username, password, rememberMe);
                 }
             }
         });
@@ -111,7 +115,7 @@ public class RegisterActivity extends AppCompatActivity {
         textInputter.setSelection(textInputter.length());
     }
 
-    private void registerUser(String email, String password) {
+    private void registerUser(String email, String password, boolean rememberMe) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -130,7 +134,7 @@ public class RegisterActivity extends AppCompatActivity {
                     if (String.valueOf(registerResponse.getStatus()).startsWith("200")) {
                         String accessToken = registerResponse.getData().getAccessToken().replace("Bearer ", "");
                         User user = parseJwtToken(accessToken);
-                        saveUserInfo(user, accessToken);
+                        saveUserInfo(user, accessToken, rememberMe);
                         Toast.makeText(RegisterActivity.this, "Register successful", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(RegisterActivity.this, ControllerActivity.class);
                         startActivity(intent);
@@ -164,7 +168,7 @@ public class RegisterActivity extends AppCompatActivity {
         return new User(userId, email, fullName, profileName, profileImage, role);
     }
 
-    private void saveUserInfo(User user, String accessToken) {
+    private void saveUserInfo(User user, String accessToken, boolean rememberMe) {
         SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("access_token", accessToken);
@@ -174,6 +178,7 @@ public class RegisterActivity extends AppCompatActivity {
         editor.putString("profile_name", user.getProfileName());
         editor.putString("profile_image", user.getProfileImage());
         editor.putString("role", user.getRole());
+        editor.putBoolean("remember_me", rememberMe);
 
         editor.apply();
     }

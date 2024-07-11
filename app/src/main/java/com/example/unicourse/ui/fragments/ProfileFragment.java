@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -28,6 +29,7 @@ import com.example.unicourse.models.user.ProfileCourse;
 import com.example.unicourse.models.user.ProfileResponse;
 import com.example.unicourse.services.UserApiService;
 import com.example.unicourse.ui.activities.CartActivity;
+import com.example.unicourse.ui.activities.LoginActivity;
 import com.example.unicourse.ui.activities.TransactionHistoryActivity;
 
 import java.io.IOException;
@@ -51,6 +53,7 @@ public class ProfileFragment extends Fragment {
     private String userAvt = null;
     private ProfileResponse userProfileData = null;
     private ProfileAdapter mProfileAdapter;
+    private Button logoutBtn;
     private final ArrayList<ProfileCourse> profileCourses = new ArrayList<>();
 
     @Override
@@ -64,6 +67,7 @@ public class ProfileFragment extends Fragment {
         TextView courseAmount = view.findViewById(R.id.courseAmount);
         RecyclerView recentCourseRV = view.findViewById(R.id.recentCourseRV);
         ImageButton profileCartBtn = view.findViewById(R.id.profileCartBtn);
+        logoutBtn = view.findViewById(R.id.logoutBtn);
         ConstraintLayout historyContainer = view.findViewById(R.id.historyContainer);
 
         historyContainer.setOnClickListener(v -> {
@@ -175,6 +179,14 @@ public class ProfileFragment extends Fragment {
             public void onFailure(Call<EnrolledCourseProgressResponse> call, Throwable throwable) {
                 Toast.makeText(requireActivity(), "Failed to get progress data from Profile Screen", Toast.LENGTH_SHORT).show();
             }
+        });
+
+        logoutBtn.setOnClickListener(v -> {
+            sharedPreferences.edit().clear().apply();
+            Intent intent = new Intent(requireActivity(), LoginActivity.class);
+            startActivity(intent);
+            requireActivity().finish();
+            Toast.makeText(requireActivity(), "Logged out successfully", Toast.LENGTH_SHORT).show();
         });
 
         // Inflate the layout for this fragment

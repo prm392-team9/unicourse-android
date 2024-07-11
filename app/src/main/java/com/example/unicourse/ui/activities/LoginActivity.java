@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -34,11 +35,10 @@ public class LoginActivity extends AppCompatActivity {
     private EditText usernameEditText;
     private EditText passwordEditText;
     private Button loginButton;
-
     private Button registerButton;
     private ImageView passwordToggle;
+    private CheckBox rememberMeCheckbox;
     private boolean isPasswordVisible = false;
-
     private static final String BASE_URL = ApiConstants.BASE_URL;
 
     @Override
@@ -52,6 +52,7 @@ public class LoginActivity extends AppCompatActivity {
         loginButton = findViewById(R.id.loginButton);
         registerButton = findViewById(R.id.registerButton);
         passwordToggle = findViewById(R.id.password_toggle);
+        rememberMeCheckbox = findViewById(R.id.rememberMeCheckbox);
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,7 +63,8 @@ public class LoginActivity extends AppCompatActivity {
                 if (username.isEmpty() || password.isEmpty()) {
                     Toast.makeText(LoginActivity.this, "Please enter username and password", Toast.LENGTH_SHORT).show();
                 } else {
-                    loginUser(username, password);
+                    boolean rememberMe = rememberMeCheckbox.isChecked();
+                    loginUser(username, password, rememberMe);
                 }
             }
         });
@@ -95,7 +97,7 @@ public class LoginActivity extends AppCompatActivity {
         passwordEditText.setSelection(passwordEditText.length());
     }
 
-    private void loginUser(String email, String password) {
+    private void loginUser(String email, String password, boolean rememberMe) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -113,7 +115,7 @@ public class LoginActivity extends AppCompatActivity {
                     if (loginResponse.getStatus() == 200) {
                         String accessToken = loginResponse.getData().getAccessToken().replace("Bearer ", "");
                         User user = parseJwtToken(accessToken);
-                        saveUserInfo(user, accessToken);
+                        saveUserInfo(user, accessToken, rememberMe);
                         Toast.makeText(LoginActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(LoginActivity.this, ControllerActivity.class);
                         startActivity(intent);
@@ -139,14 +141,14 @@ public class LoginActivity extends AppCompatActivity {
         String userId = decodedJWT.getClaim("_id").asString();
         String email = decodedJWT.getClaim("email").asString();
         String fullName = decodedJWT.getClaim("fullName").asString();
-        String profileName = decodedJWT.getClaim("fullName").asString(); // Assuming profileName is same as fullName
+        String profileName = decodedJWT.getClaim("fullName").asString();
         String profileImage = decodedJWT.getClaim("profile_image").asString();
         String role = decodedJWT.getClaim("role").asString();
 
         return new User(userId, email, fullName, profileName, profileImage, role);
     }
 
-    private void saveUserInfo(User user, String accessToken) {
+    private void saveUserInfo(User user, String accessToken, boolean rememberMe) {
         SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("access_token", accessToken);
@@ -156,6 +158,7 @@ public class LoginActivity extends AppCompatActivity {
         editor.putString("profile_name", user.getProfileName());
         editor.putString("profile_image", user.getProfileImage());
         editor.putString("role", user.getRole());
+        editor.putBoolean("remember_me", rememberMe);
 
         editor.apply();
     }
