@@ -42,7 +42,6 @@ android {
 dependencies {
     implementation("org.projectlombok:lombok:1.18.22")
     implementation(libs.swiperefreshlayout)
-    implementation(fileTree(mapOf("dir" to "C:\\ZaloPayLibs", "include" to listOf("*.aar", "*.jar"), "exclude" to listOf(""))))
     annotationProcessor("org.projectlombok:lombok:1.18.22")
     implementation("com.google.android.gms:play-services-maps:18.0.2")
     implementation("com.google.android.gms:play-services-location:21.0.1")

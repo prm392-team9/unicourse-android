@@ -17,7 +17,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.unicourse.R;
-import com.example.unicourse.zaloconfig.Api.CreateOrder;
 import com.paypal.android.sdk.payments.PayPalConfiguration;
 import com.paypal.android.sdk.payments.PayPalPayment;
 import com.paypal.android.sdk.payments.PayPalService;
@@ -29,11 +28,6 @@ import org.json.JSONObject;
 import java.math.BigDecimal;
 import java.text.NumberFormat;
 import java.util.Locale;
-
-import vn.zalopay.sdk.Environment;
-import vn.zalopay.sdk.ZaloPayError;
-import vn.zalopay.sdk.ZaloPaySDK;
-import vn.zalopay.sdk.listeners.PayOrderListener;
 
 public class PaymentScreenActivity extends AppCompatActivity {
 
@@ -57,9 +51,6 @@ public class PaymentScreenActivity extends AppCompatActivity {
         StrictMode.ThreadPolicy policy = new
                 StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-
-        // ZaloPay SDK Init
-        ZaloPaySDK.init(553, Environment.SANDBOX);
 
         // PayPal Service Init
         Intent intent = new Intent(this, PayPalService.class);
@@ -104,7 +95,6 @@ public class PaymentScreenActivity extends AppCompatActivity {
                     processPayPalPayment(totalUSDString);
                 } else if (radioZaloPay.isChecked()) {
                     Toast.makeText(PaymentScreenActivity.this, "Zalo Pay đang phát triển", Toast.LENGTH_SHORT).show();
-//                    processZaloPayPayment(totalString);
                 } else if (radioApplePay.isChecked()) {
                     Toast.makeText(PaymentScreenActivity.this, "Apple Pay đang phát triển", Toast.LENGTH_SHORT).show();
                 }
@@ -125,41 +115,6 @@ public class PaymentScreenActivity extends AppCompatActivity {
         intent.putExtra(PaymentActivity.EXTRA_PAYMENT, payment);
 
         startActivityForResult(intent, PAYPAL_REQUEST_CODE);
-    }
-
-    private void processZaloPayPayment(String amount) {
-        CreateOrder orderApi = new CreateOrder();
-        try {
-            JSONObject data = orderApi.createOrder(amount);
-            String code = data.getString("return_code");
-            if (code.equals("1")) {
-                String token = data.getString("zp_trans_token");
-                ZaloPaySDK.getInstance().payOrder(PaymentScreenActivity.this, token, "demozpdk://app", new PayOrderListener() {
-                    @Override
-                    public void onPaymentSucceeded(String s, String s1, String s2) {
-                        Intent intent1 = new Intent(PaymentScreenActivity.this, PaymentNotification.class);
-                        intent1.putExtra("result", "Thanh toán thành công");
-                        startActivity(intent1);
-                    }
-
-                    @Override
-                    public void onPaymentCanceled(String s, String s1) {
-                        Intent intent1 = new Intent(PaymentScreenActivity.this, PaymentNotification.class);
-                        intent1.putExtra("result", "Hủy thanh toán");
-                        startActivity(intent1);
-                    }
-
-                    @Override
-                    public void onPaymentError(ZaloPayError zaloPayError, String s, String s1) {
-                        Intent intent1 = new Intent(PaymentScreenActivity.this, PaymentNotification.class);
-                        intent1.putExtra("result", "Lỗi thanh toán");
-                        startActivity(intent1);
-                    }
-                });
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     @Override
