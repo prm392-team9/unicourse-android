@@ -1,6 +1,7 @@
 package com.example.unicourse.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.unicourse.R;
 import com.example.unicourse.models.user.ProfileCourse;
+import com.example.unicourse.ui.activities.CourseDetailActivity;
 
 import java.util.ArrayList;
 
@@ -31,7 +33,7 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.CardView
     public CardViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(pContext);
         View view = inflater.inflate(R.layout.activity_profile_recent_card_item, parent, false);
-        return new CardViewHolder(view);
+        return new CardViewHolder(view, pContext);
     }
 
     @Override
@@ -48,11 +50,13 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.CardView
     public static class CardViewHolder extends RecyclerView.ViewHolder {
         private ImageView imageView;
         private TextView courseTitle;
+        private Context parentContext;
 
-        public CardViewHolder(@NonNull View itemView) {
+        public CardViewHolder(@NonNull View itemView, Context pContext) {
             super(itemView);
             imageView = itemView.findViewById(R.id.recentCourseImage);
             courseTitle = itemView.findViewById(R.id.recentCourseTitle);
+            parentContext = pContext;
         }
 
         public void bind(ProfileCourse profileCourse) {
@@ -60,6 +64,11 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.CardView
                     .load(profileCourse.getImage())
                     .into(imageView);
             courseTitle.setText(profileCourse.getTitle());
+            itemView.setOnClickListener(v -> {
+                Intent intent = new Intent(parentContext, CourseDetailActivity.class);
+                intent.putExtra("COURSE_ID", profileCourse.getId());
+                parentContext.startActivity(intent);
+            });
         }
     }
 }

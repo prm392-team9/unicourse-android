@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -23,6 +24,7 @@ import com.example.unicourse.contants.ApiConstants;
 import com.example.unicourse.contants.CommonConstants;
 import com.example.unicourse.models.common.CommonResponse;
 import com.example.unicourse.models.user.Cart;
+import com.example.unicourse.models.user.DeleteCartResponse;
 import com.example.unicourse.services.UserApiService;
 
 import java.io.IOException;
@@ -214,5 +216,44 @@ public class CartActivity extends AppCompatActivity {
 
     private String generateTransactionCode() {
         return "UNI" + System.currentTimeMillis();
+    }
+
+    public void deleteCartItem(View view) {
+        String selectedCourseId = view.getTag().toString();
+
+        OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                .addInterceptor(new Interceptor() {
+                    @Override
+                    public okhttp3.Response intercept(Chain chain) throws IOException {
+                        Request originalRequest = chain.request();
+                        Request.Builder builder = originalRequest.newBuilder()
+                                .header("Authorization", "Bearer " + accessToken);
+                        Request newRequest = builder.build();
+                        return chain.proceed(newRequest);
+                    }
+                })
+                .build();
+        Retrofit retrofit = new Retrofit.Builder()
+                .client(okHttpClient)
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        UserApiService userApiService = retrofit.create(UserApiService.class);
+        Call<CommonResponse<DeleteCartResponse>> call = userApiService.deleteCourseFromCart(cartData.getId(), selectedCourseId);
+
+        call.enqueue(new Callback<CommonResponse<DeleteCartResponse>>() {
+            @Override
+            public void onResponse(Call<CommonResponse<DeleteCartResponse>> call, Response<CommonResponse<DeleteCartResponse>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    cartData.getItems().removeIf(item -> item.getId().equals(selectedCourseId));
+                    cartAdapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<CommonResponse<DeleteCartResponse>> call, Throwable throwable) {
+                Toast.makeText(CartActivity.this, "Can not perform action: " + throwable.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
