@@ -241,6 +241,9 @@ public class CourseDetailActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<CommonResponse<List<EnrollCourse>>> call, Response<CommonResponse<List<EnrollCourse>>> response) {
                 if (response.isSuccessful() && response.body() != null) {
+                    if (response.body().getData().isEmpty() || response.body().getData() == null){
+                        return;
+                    }
                     enrolledCourses = response.body().getData();
                     updateEnrollButton();
                 } else {
