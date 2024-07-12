@@ -21,7 +21,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.airbnb.lottie.LottieAnimationView;
-import com.bumptech.glide.Glide;
 import com.example.unicourse.R;
 import com.example.unicourse.adapters.ChatAdapter;
 import com.example.unicourse.contants.ApiConstants;
@@ -31,7 +30,6 @@ import com.example.unicourse.services.ChatRoomApiService;
 import com.example.unicourse.services.RetrofitClient;
 import com.example.unicourse.viewmodels.ChatViewModel;
 import com.example.unicourse.models.chatroom.Message;
-import com.example.unicourse.viewmodels.LandingViewModel;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -69,7 +67,7 @@ public class ChatFragment extends Fragment {
     private SwipeRefreshLayout swipeRefreshLayout;
     private LottieAnimationView loadingAnimation;
 
-    private ChatViewModel chatViewModelInstance;
+    private static final String PREF_JOINED_ROOM_KEY = "joined_room_";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -87,6 +85,14 @@ public class ChatFragment extends Fragment {
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
         userId = sharedPreferences.getString("user_id", null);
         accessToken = sharedPreferences.getString("access_token", null);
+
+        // Initialize chatRoomService
+        chatRoomService = RetrofitClient.getClient(ApiConstants.BASE_URL, accessToken).create(ChatRoomApiService.class);
+
+        // Check if the user has already joined the room
+        if (!sharedPreferences.getBoolean(PREF_JOINED_ROOM_KEY + chatRoomId, false)) {
+            joinChatRoom(chatRoomId);
+        }
 
         chatViewModel = new ViewModelProvider(this).get(ChatViewModel.class);
         chatAdapter = new ChatAdapter(new ArrayList<>());
@@ -123,6 +129,29 @@ public class ChatFragment extends Fragment {
         });
 
         return view;
+    }
+
+    private void joinChatRoom(String chatRoomId) {
+        Call<Void> call = chatRoomService.joinChatRoom(chatRoomId);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    // Save to SharedPreferences that the user has joined this room
+                    SharedPreferences sharedPreferences = getActivity().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putBoolean(PREF_JOINED_ROOM_KEY + chatRoomId, true);
+                    editor.apply();
+                } else {
+//                    Toast.makeText(getContext(), "Failed to join chat room", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+//                Toast.makeText(getContext(), "Failed to join chat room", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
