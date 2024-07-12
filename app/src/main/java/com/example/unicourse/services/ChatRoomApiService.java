@@ -19,6 +19,9 @@ public interface ChatRoomApiService {
     @PUT("chatRoom/send-message")
     Call<ChatRoomSendMessageResponse> sendMessage(@Body SendMessageRequest body);
 
+    @PUT("chatRoom/join-room/{chatRoomId}")
+    Call<Void> joinChatRoom(@Path("chatRoomId") String chatRoomId);
+
     class ApiResponse {
         private String message;
         private Number status;
