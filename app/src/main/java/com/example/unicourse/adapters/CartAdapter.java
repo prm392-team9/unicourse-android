@@ -2,13 +2,11 @@ package com.example.unicourse.adapters;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
@@ -27,7 +25,6 @@ import com.example.unicourse.models.common.CommonResponse;
 import com.example.unicourse.models.user.Cart;
 import com.example.unicourse.models.user.DeleteCartResponse;
 import com.example.unicourse.services.UserApiService;
-import com.example.unicourse.ui.activities.CartActivity;
 
 import java.io.IOException;
 import java.text.NumberFormat;
@@ -46,13 +43,17 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder> {
     private final Context mContext;
     private final ArrayList<Cart.Item> carts;
+    private final String BASE_URL = ApiConstants.BASE_URL;
     private boolean inEditMode = false;
     private String cartId;
-    private final String BASE_URL = ApiConstants.BASE_URL;
 
     public CartAdapter(Context mContext, ArrayList<Cart.Item> carts, boolean inEditMode, String cartId) {
         this.mContext = mContext;
-        this.carts = carts;
+        if (carts != null) {
+            this.carts = carts;
+        } else {
+            this.carts = new ArrayList<>();
+        }
         this.cartId = cartId;
         this.inEditMode = inEditMode;
     }
@@ -101,6 +102,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         }
 
         public void bind(Cart.Item cart) {
+            deleteItemBtn.setTag(cart.getId());
             Glide.with(cartItemImage.getContext())
                     .load(cart.getThumbnail())
                     .into(cartItemImage);
@@ -112,53 +114,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
 //            Init basic value
             cartItemOldPrice.setPaintFlags(cartItemOldPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 
-            deleteItemBtn.setOnClickListener(v -> {
-                SharedPreferences sharedPreferences = mContext.getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
-                String accessToken = sharedPreferences.getString("access_token", null);
-
-                OkHttpClient okHttpClient = new OkHttpClient.Builder()
-                        .addInterceptor(new Interceptor() {
-                            @Override
-                            public okhttp3.Response intercept(Chain chain) throws IOException {
-                                Request originalRequest = chain.request();
-                                Request.Builder builder = originalRequest.newBuilder()
-                                        .header("Authorization", "Bearer " + accessToken);
-                                Request newRequest = builder.build();
-                                return chain.proceed(newRequest);
-                            }
-                        })
-                        .build();
-                Retrofit retrofit = new Retrofit.Builder()
-                        .client(okHttpClient)
-                        .baseUrl(BASE_URL)
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
-                UserApiService userApiService = retrofit.create(UserApiService.class);
-                Call<CommonResponse<DeleteCartResponse>> call = userApiService.deleteCourseFromCart(cartId, cart.getId());
-
-                call.enqueue(new Callback<CommonResponse<DeleteCartResponse>>() {
-                    @Override
-                    public void onResponse(Call<CommonResponse<DeleteCartResponse>> call, Response<CommonResponse<DeleteCartResponse>> response) {
-                        if (response.isSuccessful() && response.body() != null) {
-                            CommonResponse<DeleteCartResponse> deleteCartResponse = response.body();
-                            if (String.valueOf(deleteCartResponse.getStatus()).equals("200")) {
-//                                carts.remove(cart);
-                                ((Activity) mContext).recreate();
-//                                CartAdapter newAdapter = new CartAdapter(mContext, carts, inEditMode, cartId);
-//                                ((RecyclerView) itemView.getParent()).setAdapter(newAdapter);
-//                                notifyItemRemoved(getAdapterPosition());
-//                                notifyItemRangeChanged(getAdapterPosition(), carts.size());
-                            }
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<CommonResponse<DeleteCartResponse>> call, Throwable throwable) {
-                        Toast.makeText(mContext, "Can not perform action: " + throwable.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
-            });
-
             if (inEditMode) {
                 deleteItemBtn.setVisibility(View.VISIBLE);
                 cartCheckBox.setVisibility(View.GONE);
@@ -169,7 +124,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
                 cartCheckBoxStatus.setVisibility(View.GONE);
             }
 
-            cartCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+             cartCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     cart.setSelected(isChecked);
@@ -185,7 +140,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
 
         private int dpToPx(Context context, int dp) {
             float density = context.getResources().getDisplayMetrics().density;
-            return Math.round((float)dp * density);
+            return Math.round((float) dp * density);
         }
     }
 }

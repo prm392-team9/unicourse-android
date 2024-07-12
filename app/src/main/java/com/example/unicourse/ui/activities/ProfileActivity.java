@@ -181,7 +181,7 @@ public class ProfileActivity extends AppCompatActivity {
                         int accomplishAmountCount = 0;
                         if (progressResponse.getData() != null) {
                             for (EnrolledCourseProgressResponse.EnrolledCourse course : progressResponse.getData()) {
-                                profileCourses.add(new ProfileCourse(course.getCourse().getTitle(), course.getCourse().getThumbnail()));
+                                profileCourses.add(new ProfileCourse(course.getCourse().get_id(), course.getCourse().getTitle(), course.getCourse().getThumbnail()));
                                 progressAmountCount += course.getProgress();
                                 if (course.isCompleted()) {
                                     accomplishAmountCount++;
