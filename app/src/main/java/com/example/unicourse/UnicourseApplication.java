@@ -9,6 +9,7 @@ import android.os.CountDownTimer;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.unicourse.ui.activities.ActivitySupportContact;
 import com.example.unicourse.ui.activities.ControllerActivity;
 import com.example.unicourse.ui.activities.LoginActivity;
 

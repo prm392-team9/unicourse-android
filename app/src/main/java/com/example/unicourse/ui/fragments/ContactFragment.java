@@ -9,6 +9,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+
 import com.example.unicourse.R;
 import com.example.unicourse.databinding.FragmentContactBinding;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -24,6 +26,7 @@ public class ContactFragment extends Fragment implements OnMapReadyCallback {
     private static final String TAG = "ContactFragment";
     private GoogleMap mMap;
     private FragmentContactBinding binding;
+    private static final LatLng FPT_UNIVERSITY = new LatLng(10.841030, 106.810806);
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -61,8 +64,7 @@ public class ContactFragment extends Fragment implements OnMapReadyCallback {
         }
 
         // Add a marker in FPT University and move the camera
-        LatLng fptUniversity = new LatLng(10.8411276, 106.809883);
-        mMap.addMarker(new MarkerOptions().position(fptUniversity).title("Trường Đại học FPT TP. HCM"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(fptUniversity, 15));
+        mMap.addMarker(new MarkerOptions().position(FPT_UNIVERSITY).title("FPT University"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(FPT_UNIVERSITY, 15));
     }
 }
